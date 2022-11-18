@@ -1,0 +1,138 @@
+﻿@using phim2101.Models
+
+
+@{
+    ViewBag.Title = "Search";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string key = Request.QueryString["key"];
+    List<Phim> result = new List<Phim>();
+}
+<span class="dplay-block page-heading heading--outcontainer">Search by</span>
+<div class="form_search">
+    <div style="width:200px;">
+        @{
+            phim2101.Models.DBContext db = new phim2101.Models.DBContext();
+            var theloai = db.TheLoaiPhims.ToList();
+        }
+        <label for="cars" style="color:#f5f5f5">Thể loại:</label>
+        <ul class="theloai_item">
+            @foreach (var i in theloai)
+            {
+                <li><a href="/home/timkiemtheloai/@i.MaLP">@i.LoaiPhim</a></li>
+            }
+        </ul>
+    </div>
+    <div>
+        <form name="Search" action="/Home/Search" method="post" class="mega-select">
+            <input name="searchFilm" type='text' class="select__field">
+            <button class="search" type="submit"><i class="fa fa-search"></i></button>
+        </form>
+    </div>
+</div>
+<div class="container" id="resturant">
+    @{
+
+        if (string.IsNullOrEmpty(key))
+        {
+            <h3>Vui lòng nhập từ khóa cần tìm</h3>
+        }
+        else
+        {
+            if (key == "" || key.Length < 3)
+            {
+                <h3>Vui lòng nhập từ khóa cần tìm</h3>
+            }
+            else
+            {
+                result = new Phim().searchByKey(key);
+                <h2 style=" padding: 25px 0; color: red;">Kết quả tìm kiếm từ khóa "@key"</h2>
+                <div class="col-sm-12">
+                    <div class="row">
+                        <div class="col-sm-8 col-md-9">
+                            @foreach (var i in result)
+                            {
+
+                                <div class="movie movie--test movie--test--dark movie--test--left ml-5">
+                                    <div class="movie__images">
+                                        <a href="Home/ChiTietPhim/@i.MaPhim" class="movie-beta__link">
+                                            <img class="film-traller" alt='' src="@i.hinhtraller" />
+                                        </a>
+                                    </div>
+                                    <div class="movie__info">
+                                        <a href='movie-page-left.html' class="movie__title">@i.TenPhim  </a>
+
+                                        <p class="movie__time">@i.thoiluong</p>
+                                        @foreach (var tl in theloai)
+                                        {
+                                            if (tl.MaLP == i.MaLP)
+                                            {
+                                                <p class="movie__option">Thể Loại: @tl.LoaiPhim</p>
+
+                                            }
+
+                                        }
+
+                                        <div class="movie__rate">
+                                            <div class="score"></div>
+                                            <span class="movie__rating">4.1</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+
+                        </div>
+                    </div>
+                </div>
+
+            }
+        }
+
+    }
+</div>
+<style>
+    .margin-auto {
+        margin: -8px auto 8px;
+    }
+
+    .imgplaylist {
+        width: 100%;
+    }
+
+    .nameplaylist {
+        width: 100%;
+        text-align: center;
+        margin: 0 auto;
+    }
+
+    .form_search {
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .mega-select .select__field {
+        max-width: 200px;
+        -webkit-border-radius: 3px;
+        -moz-border-radius: 3px;
+        border-radius: 3px;
+        background-color: #fff;
+        border: solid 1px #dbdee1;
+        font-size: 13px;
+        color: #4c4145;
+        padding: 8px 20px 9px;
+        margin-top: 7px;
+        float: left;
+        margin-right: -3px;
+    }
+
+    .search {
+        position: relative;
+        top: 4px;
+        padding: 10px;
+        margin-left: 20px;
+        border-radius: 15%;
+    }
+</style>
+
+

@@ -1,0 +1,62 @@
+﻿@using phim2101.Models
+
+@{
+    ViewBag.Title = "timkiemtheloai";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    phim2101.Models.DBContext db = new phim2101.Models.DBContext();
+    var theloai = db.TheLoaiPhims.ToList();
+}
+<style>
+    .movie--test {
+        width: 49%;
+        float: left;
+        margin: 0 5px 5px 5px;
+        height:280px;
+    }
+
+    .p30px {
+        padding: 30px;
+    }
+    .film-traller{
+        width:100%;
+        height:280px;
+    }
+</style>
+<div class=" p30px col-sm-12">
+    <h2 style=" color: red; text-align:center">Kết quả tìm kiếm:</h2>
+
+    <div class="row">
+        @foreach (var i in Model)
+        {
+            <div class="movie movie--test movie--test--dark movie--test--left ml-5">
+                <div class="movie__images">
+                    <a href="Home/ChiTietPhim/@i.MaPhim" class="movie-beta__link">
+                        <img class="film-traller" alt='' src="@i.hinhtraller" />
+                    </a>
+                </div>
+                <div class="movie__info">
+                    <a href='movie-page-left.html' class="movie__title">@i.TenPhim  </a>
+
+                    <p class="movie__time">@i.thoiluong</p>
+                    @foreach (var tl in theloai)
+                    {
+                        if (tl.MaLP == i.MaLP)
+                        {
+                            <p class="movie__option">Thể Loại: @tl.LoaiPhim</p>
+
+                        }
+
+                    }
+
+                    <div class="movie__rate">
+                        <div class="score"></div>
+                        <span class="movie__rating">4.1</span>
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+</div>

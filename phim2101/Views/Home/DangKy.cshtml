@@ -1,0 +1,73 @@
+﻿
+@{
+    ViewBag.Title = "Đăng Ký";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="auth-wrapper">
+        <div class="auth-container">
+            <div class="auth-action-left">
+                <div class="auth-form-outer">
+                    <h2 class="auth-form-title">
+                        Create Account
+                    </h2>
+                    <form class="login-form">
+                        @Html.TextBox("TenDN", "", new { placeholder = "Tên Đăng nhập" })
+                        <div>
+                            @ViewData["Loi2"]
+                        </div>
+                        @Html.TextBox("hoten", "", new { placeholder = "Họ tên" })
+                        <div>
+                            @ViewData["Loi1"]
+
+                        </div>
+
+                        @Html.TextBox("DienThoai", "", new { placeholder = "Điện Thoại" })
+                        <div>
+                            @ViewData["Loi6"]
+
+                        </div>
+
+                        @Html.Password("MatKhau", "", new { placeholder = "Mật khẩu" })
+                        <div>
+                            @ViewData["Loi4"]
+
+                        </div>
+
+                        @Html.Password("NhapLaiMatKhau", "", new { placeholder = "Nhập lại mật khẩu" })
+                        <div>
+                            @ViewData["Loi8"]
+
+                        </div>
+
+                        @Html.TextBox("DiaChi", "", new { placeholder = "Địa chỉ" })
+                        <div>
+                            @ViewData["Loi7"]
+
+                        </div>
+
+                        <div class="footer-action1">
+                            <input type="submit" value="Đăng ký" class="auth-submit">
+                            <a href="/Home/DangNhap" class="auth-btn-direct">Đăng nhập</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="auth-action-right">
+                <div class="auth-image">
+                    <img src="https://i.pinimg.com/originals/41/65/e9/4165e92faa95b4b84b9ee58159496c1b.jpg" alt="login" style="width: 400px; height: 605px;">
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<style>
+    .footer-action1 {
+        display: flex;
+        width: 100%;
+        box-sizing: border-box;
+        overflow: hidden;
+    }
+</style>

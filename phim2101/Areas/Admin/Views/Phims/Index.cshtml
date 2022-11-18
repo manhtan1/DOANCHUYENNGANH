@@ -1,0 +1,120 @@
+﻿@using phim2101.Models;
+@using PagedList.Mvc;
+
+@model PagedList.PagedList<Phim>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Quản lý phim</h2>
+
+<p>
+    @Html.ActionLink("Tạo mới", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Định dạng Phim
+        </th>
+        <th>
+            Thể loại
+        </th>
+        <th>
+            Tên Phim
+        </th>
+        <th>
+            Quốc Gia
+        </th>
+        @* <th>
+            @Html.DisplayNameFor(model => model.traller)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.hinhtraller)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MoTa)
+        </th>*@
+        <th>
+            Thời Lượng
+        </th>
+        <th>
+            Thời Gian Chiếu
+        </th>
+        <th>
+            Thời gian kết thúc
+        </th>
+        <th>
+            Lượt xem
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.DinhDangPhim.DangPhim)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.TheLoaiPhim.LoaiPhim)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.TenPhim)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.QuocGia)
+    </td>
+    @*   <td>
+            @Html.DisplayFor(modelItem => item.traller)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.hinhtraller)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MoTa)
+        </td>*@
+    <td>
+        @Html.DisplayFor(modelItem => item.thoiluong)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.ThoigianChieu)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.ThoiGianKetThuc)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.luotxem)
+    </td>
+    <td>
+        @Html.ActionLink("Chỉnh sửa", "Edit", new { id = item.MaPhim }) |
+        @Html.ActionLink("Chi tiết", "Details", new { id = item.MaPhim }) |
+        @Html.ActionLink("Xóa", "Delete", new { id = item.MaPhim })
+    </td>
+</tr>
+    }
+
+</table>
+<div style="text-align:center;">
+    <div class="MenuTrang">
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page = page }))
+    </div>
+
+</div>
+<style>
+    .MenuTrang {
+        display: inline-block;
+        margin-top: 15px;
+    }
+
+        .MenuTrang li {
+            display: inline;
+            padding: 4px 5px;
+            color:#fff;
+            background: #a52a2a;
+        }
+            .MenuTrang li a {
+                color: #fff;
+                text-decoration: none;
+            }
+</style>

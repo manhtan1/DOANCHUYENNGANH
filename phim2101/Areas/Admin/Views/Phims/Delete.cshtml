@@ -1,0 +1,105 @@
+﻿@model phim2101.Models.Phim
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Xóa</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Phim</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DinhDangPhim.DangPhim)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DinhDangPhim.DangPhim)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TheLoaiPhim.LoaiPhim)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TheLoaiPhim.LoaiPhim)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TenPhim)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TenPhim)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.QuocGia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.QuocGia)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.traller)
+        </dt>
+
+        @*<dd>
+            @Html.DisplayFor(model => model.traller)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.hinhtraller)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.hinhtraller)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MoTa)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MoTa)
+        </dd>*@
+
+        <dt>
+            @Html.DisplayNameFor(model => model.thoiluong)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.thoiluong)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ThoigianChieu)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ThoigianChieu)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.luotxem)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.luotxem)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Trở về", "Index")
+        </div>
+    }
+</div>

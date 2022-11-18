@@ -1,0 +1,173 @@
+﻿@model phim2101.Models.Phim
+
+@{
+    ViewBag.Title = "ChitietPhim";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<style>
+    .movie__describe {
+        color: #fff;
+    }
+
+    .movie__images img {
+        width: 256px;
+        height: 321px !important;
+    }
+
+    .cmt_form {
+        width: 100%;
+        padding: 15px;
+        border-radius: 5px;
+    }
+
+    .comment-sets {
+        display: inline-block;
+    }
+
+    .cmt_submit {
+        float: right;
+        margin-top: 20px;
+    }
+
+    .comment__message {
+        color: #fff;
+    }
+
+    .comment__author {
+        color: #fe505a;
+    }
+
+    .comment__images {
+        margin-bottom: 5px;
+    }
+</style>
+<section class="container">
+    <div class="col-sm-12">
+
+        <div class="movie">
+            <h2 class="page-heading">@Model.TenPhim</h2>
+
+            <div class="movie__info">
+                <div class="col-sm-4 col-md-3 movie-mobile">
+                    <div class="movie__images">
+                        <span class="movie__rating">5.0</span>
+                        <img alt='' src="@Model.hinhtraller">
+                    </div>
+                    <div class="movie__rate">Your vote: <div id='score' class="score"></div></div>
+                </div>
+
+                <div class="col-sm-8 col-md-9">
+                    <p class="movie__time">@Model.thoiluong</p>
+
+                    <p class="movie__option"><strong>Country: </strong><a class="movie__describe" href="#">@Model.QuocGia</a>, <a href="#">USA</a></p>
+                    <p class="movie__option"><strong>Year: </strong><a class="movie__describe" href="#">@Model.ThoigianChieu</a></p>
+                    <p class="movie__option"><strong>Director: </strong><a class="movie__describe" href="#">@Model.TheLoaiPhim</a></p>
+                    <p class="movie__option"><strong>Age restriction: </strong><a class="movie__describe" href="#">13</a></p>
+
+                    <a href="#" class="movie__describe comment-link">Comments:  15</a>
+
+                    <div class="movie__btns movie__btns--full">
+                        <a href="/Datve/Trangdatve/@Model.MaPhim" class="btn btn-md btn--warning">Đặt vé</a>
+                        <a href="#" class="watchlist">Thêm vào danh sách của bạn</a>
+                    </div>
+
+                    <div class="share">
+                        <span class="share__marker">Share: </span>
+                        <div class="addthis_toolbox addthis_default_style ">
+                            <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+                            <a class="addthis_button_tweet"></a>
+                            <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="clearfix"></div>
+
+            <h2 class="page-heading">The plot</h2>
+            <p class="movie__describe">@Model.MoTa</p>
+
+            <h2 class="page-heading">photos &amp; videos</h2>
+            <video width="1170" height="700" controls>
+                <source src="@Model.traller" type="video/mp4">
+                <source src="@Model.traller" type="video/ogg">
+            </video>
+
+
+        </div>
+
+
+
+
+
+        <div class="clearfix"></div>
+        <!-- hiden maps with multiple locator-->
+
+        <h2 class="page-heading">comments (15)</h2>
+
+        <div class="comment-wrapper">
+            @{
+                var session = (phim2101.Models.KhachHang)Session["TaiKhoan"];
+                phim2101.Models.DBContext db = new phim2101.Models.DBContext();
+                var cmt = db.CT_CMT.ToList();
+            }
+            @if (session != null)
+            {
+                using (Html.BeginForm("Cmt", "Home", new { @id = "comment-form", @class = "comment-form", @idphim = @Model.MaPhim }))
+                {
+                    @ViewData["Loi"]
+                    @Html.TextBox("cmt", "", new { @class = "cmt_form", placeholder = "Thêm bình luận mới" })
+                    <input value="add comment" class="btn btn-md btn--danger comment-form__btn cmt_submit" type="submit">
+                }
+            }
+            @*else
+                {
+                    <div></div>
+                }*@
+            <div class="comment-sets">
+
+                <div class="comment">
+                    <div class="comment__images">
+                        <img alt='' src="http://placehold.it/50x50">
+                    </div>
+
+                    <a href='#' class="comment__author"><span class="social-used fa fa-facebook"></span>Roberta Inetti</a>
+                    <p class="comment__date">today | 03:04</p>
+                    <p class="comment__message">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut vitae enim sollicitudin, euismod erat id, fringilla lacus. Cras ut rutrum lectus. Etiam ante justo, volutpat at viverra a, mattis in velit. Morbi molestie rhoncus enim, vitae sagittis dolor tristique et.</p>
+                    <a href='#' class="comment__reply">Reply</a>
+                </div>
+                @foreach (var bl in cmt)
+                {
+                    if (Model.MaPhim == bl.MaPhim)
+                    {
+                        <div class="comment">
+                            <div class="comment__images">
+                                <img alt='' width="50px" src="https://i.pinimg.com/236x/1b/93/75/1b93750b690e3f49820c460948a937e9.jpg">
+                            </div>
+
+                            <a href='#' class="comment__author"><span class="social-used fa fa-vk"></span>@bl.KhachHang.TenKH</a>
+                            <p class="comment__date">@bl.ngaycmt</p>
+                            <p class="comment__message">@bl.comment</p>
+                            <a href='#' class="comment__reply">Reply</a>
+                        </div>
+                    }
+                    else
+                    {
+                        if (cmt.Count == 0)
+                        {
+                            <div class="none-user">
+                                <span>Không có lượt bình luận</span>
+                            </div>
+                        }
+                    }
+                }
+
+
+            </div>
+        </div>
+    </div>
+
+</section>
+

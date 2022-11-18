@@ -1,0 +1,108 @@
+﻿@model phim2101.Models.Phim
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/style.css" rel="stylesheet" />
+<style>
+    .movie__describe {
+        color: #000;
+    }
+
+    .movie__images img {
+        width: 100%;
+        height: 321px !important;
+    }
+
+    .cmt_form {
+        width: 100%;
+        padding: 15px;
+        border-radius: 5px;
+    }
+
+    .comment-sets {
+        display: inline-block;
+    }
+
+    .cmt_submit {
+        float: right;
+        margin-top: 20px;
+    }
+
+    .comment__message {
+        color: #fff;
+    }
+
+    .comment__author {
+        color: #fe505a;
+    }
+
+    .comment__images {
+        margin-bottom: 5px;
+    
+    }
+    .btn_edit {
+        background: brown;
+        font-size: 20px;
+        border: none;
+        border-radius: 5px;
+        margin-bottom: 10px;
+        margin-left: 15px;
+        padding: 5px;
+    }
+    .btn_Index {
+        background: brown;
+        font-size: 20px;
+        border: none;
+        border-radius: 5px;
+        margin-bottom: 10px;
+        padding: 5px;
+    }
+    button a {
+        color: #fff;
+    }
+</style>
+<div class="col-sm-12">
+
+    <div class="movie">
+        <h2 class="page-heading">@Html.DisplayFor(model => model.TenPhim)</h2>
+
+        <div class="movie__info">
+            <div class="col-sm-4 col-md-3 movie-mobile">
+                <div class="movie__images">
+                    <img alt='' src="@Html.DisplayFor(model => model.hinhtraller)">
+                </div>
+            </div>
+
+            <div class="col-sm-8 col-md-9">
+                <p class="movie__time">@Html.DisplayFor(model => model.thoiluong)</p>
+                <p class="movie__option"><strong>Quốc gia: </strong><a class="movie__describe" href="#">@Html.DisplayFor(model => model.QuocGia)</a>, <a href="#">USA</a></p>
+                <p class="movie__option"><strong>Năm: </strong><a class="movie__describe" href="#">@Html.DisplayFor(model => model.ThoigianChieu)</a></p>
+                <p class="movie__option"><strong>Thể loại: </strong><a class="movie__describe" href="#">@Html.DisplayFor(model => model.TheLoaiPhim.LoaiPhim)</a></p>
+                <p class="movie__option"><strong>Mô tả: </strong><a class="movie__describe" href="#">@Model.MoTa</a></p>
+
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <h2 class="page-heading">TRAILER</h2>
+        <video width="1170" height="700" controls>
+            <source src="@Model.traller" type="video/mp4">
+            <source src="@Model.traller" type="video/ogg">
+        </video>
+
+
+    </div>
+</div>
+
+<div>
+
+    <button class="btn_edit">
+        @Html.ActionLink("Chỉnh sửa", "Edit", new { id = Model.MaPhim })
+    </button>
+    |
+    <button class="btn_Index">
+        @Html.ActionLink("Trở về", "Index", new { @class = "btn_Index" })
+
+    </button>
+</div>

@@ -1,0 +1,281 @@
+﻿@using phim2101.Models;
+@using PagedList.Mvc;
+
+@model PagedList.PagedList<Phim>
+@{
+    ViewBag.Title = "Home Page";
+}
+<link href="~/Content/style.css" rel="stylesheet" />
+<style>
+    div.movie .movie--test,
+    img.film-traller {
+        height: 200px;
+    }
+
+    img.film-traller {
+        width: 100%;
+    }
+
+    .MenuTrang {
+        display: inline-block;
+        margin-top: 15px;
+    }
+
+        .MenuTrang li {
+            display: inline;
+            padding: 4px 5px;
+            background: #e7cccc;
+        }
+
+    .dplay-block {
+        display: inline-block;
+    }
+
+    .hinhtraller {
+        width: 70px;
+    }
+
+    .form_search {
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .mega-select .select__field {
+        max-width: 200px;
+        -webkit-border-radius: 3px;
+        -moz-border-radius: 3px;
+        border-radius: 3px;
+        background-color: #fff;
+        border: solid 1px #dbdee1;
+        font-size: 13px;
+        color: #4c4145;
+        padding: 8px 20px 9px;
+        margin-top: 7px;
+        float: left;
+        margin-right: -3px;
+    }
+
+    .search {
+        position: relative;
+        top: 4px;
+        padding: 10px;
+        margin-left: 20px;
+        border-radius: 15%;
+    }
+
+    .theloai_item {
+        background: #fff;
+        width: 100px;
+        height: 100px;
+        overflow-y: auto;
+        position: absolute;
+        z-index: 111111;
+        border-radius: 5px;
+        margin: 0;
+        display: none;
+        animation: fadeIn linear 0.3s;
+    }
+
+        .theloai_item li {
+            padding: 10px;
+            cursor: pointer;
+        }
+
+    .title_tl {
+        position: relative;
+        cursor: pointer;
+    }
+
+    .theloai_hover:hover .theloai_item {
+        display: block;
+    }
+
+    .movie--test {
+        width: 49%;
+        float: left;
+        margin: 0 3px 3px;
+    }
+</style>
+
+@*<div class="bannercontainer">
+        <div class="banner">
+            <img alt='' src="~/img/rapphim.png" />
+        </div>
+    </div>*@
+@*<div class="bgleft">
+        <img alt='' src="~/img/logogiff.gif" />
+    </div>*@
+
+<section class="container">
+    <div class="movie-best">
+        <div class="col-sm-10 col-sm-offset-1 movie-best__rating">Today Best choice</div>
+        <div class="col-sm-12 change--col">
+            @{
+                phim2101.Models.DBContext db = new phim2101.Models.DBContext();
+                var theloai = db.TheLoaiPhims.ToList();
+                var phimmoi = db.Phims.ToList();
+                var topphim = db.Phims.OrderByDescending(a => a.ThoigianChieu < DateTime.Now).Take(6).ToList();
+            }
+            @foreach (var item in topphim)
+            {
+
+                <div class="movie-beta__item ">
+                    <img src="@item.hinhtraller" alt='' />
+                    <span class="best-rate">5.0</span>
+                    @foreach (var i in theloai)
+                    {
+                        if (@item.MaLP == @i.MaLP)
+                        {
+                            <ul class="movie-beta__info">
+
+                                <li><span class="best-voted">@item.TenPhim</span></li>
+                                <li>
+                                    <p class="movie__time">@item.thoiluong</p>
+                                    <p>@i.LoaiPhim </p>
+                                    <p>@item.QuocGia</p>
+                                </li>
+                                <li class="last-block">
+                                    <a href="Home/ChiTietPhim/@item.MaPhim" class="slide__link">more</a>
+                                </li>
+                            </ul>
+                        }
+
+                    }
+
+                </div>
+            }
+        </div>
+        <div class="col-sm-10 col-sm-offset-1 movie-best__check">check all movies now playing</div>
+    </div>
+
+    <span class="dplay-block page-heading heading--outcontainer">Search by</span>
+    <div class="form_search">
+        <div class="theloai_hover" style="width:200px;">
+            <label class="title_tl" style="color:#f5f5f5">Thể loại</label>
+            <ul class="theloai_item">
+                @foreach (var i in theloai)
+                {
+                    <li><a href="/home/timkiemtheloai/@i.MaLP">@i.LoaiPhim</a></li>
+                }
+            </ul>
+        </div>
+        <div>
+            <form name="Search" action="/Home/Search" method="post" class="mega-select">
+                <input name="searchFilm" type='text' placeholder="nhập phim cần tìm" class="select__field">
+                <button class="search" type="submit"><i class="fa fa-search"></i></button>
+            </form>
+        </div>
+    </div>
+    <h2 id='target' class="page-heading heading--outcontainer">Now in the cinema</h2>
+    <div class="col-sm-12">
+        <div class="row">
+            <div class="col-sm-8 col-md-9">
+                @{
+                    int so = 1;
+                }
+                @foreach (var i in Model)
+                {
+                    if ((so == 1 || so == 4 || so == 5))
+                    {
+                        <div class="movie movie--test movie--test--dark movie--test--left">
+                            <div class="movie__images">
+                                <a href="Home/ChiTietPhim/@i.MaPhim" class="movie-beta__link">
+                                    <img src="@i.hinhtraller" class="film-traller" alt='' />
+                                </a>
+                            </div>
+                            <div class="movie__info">
+                                <a href='Home/ChiTietPhim/@i.MaPhim' class="movie__title">@i.TenPhim  </a>
+
+                                <p class="movie__time">@i.thoiluong</p>
+                                @foreach (var tl in theloai)
+                                {
+                                    if (tl.MaLP == i.MaLP)
+                                    {
+                                        <p class="movie__option">Thể Loại: @tl.LoaiPhim</p>
+
+                                    }
+
+                                }
+
+                                <div class="movie__rate">
+                                    <div class="score"></div>
+                                    <span class="movie__rating">4.1</span>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="movie movie--test movie--test--light movie--test--left">
+                            <div class="movie__images">
+                                <a href="Home/ChiTietPhim/@i.MaPhim" class="movie-beta__link">
+                                    <img src="@i.hinhtraller" class="film-traller" alt='' />
+                                </a>
+                            </div>
+                            <div class="movie__info">
+                                <a href='Home/ChiTietPhim/@i.MaPhim' class="movie__title">@i.TenPhim  </a>
+
+                                <p class="movie__time">@i.thoiluong</p>
+                                @foreach (var tl in theloai)
+                                {
+                                    if (tl.MaLP == i.MaLP)
+                                    {
+                                        <p class="movie__option">Thể Loại: @tl.LoaiPhim</p>
+
+                                    }
+
+                                }
+
+                                <div class="movie__rate">
+                                    <div class="score"></div>
+                                    <span class="movie__rating">4.1</span>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    so++;
+                }
+            </div>
+            <aside class="col-sm-4 col-md-3">
+                <div class="sitebar first-banner--left">
+                    <div class="promo marginb-sm">
+                        <div class="promo__head">Phim sắp chiếu</div>
+                        <div class="promo__describe">for all smartphone and tablets</div>
+                        <div class="promo__content">
+                            <ul>
+                                @foreach (var i in phimmoi)
+                                {
+                                    if (@i.ThoigianChieu > DateTime.Now)
+                                    {
+                                        <li class="movie  store-variant">
+                                            <a href="Home/ChiTietPhim/@i.MaPhim">
+                                                <div class="desc_movie">
+                                                    <img src="@i.hinhtraller" class="hinhtraller" alt='banner' />
+                                                    <div class="movie_watch">
+                                                        <span>@i.TenPhim</span>
+                                                        <p>@i.ThoigianChieu</p>
+                                                        @*  <span class="movie__rating_watch">4.1</span>*@
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </li>
+                                    }
+
+                                }
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </aside>
+        </div>
+    </div>
+    <div class="MenuTrang">
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page = page }))
+    </div>
+
+
+
+</section>

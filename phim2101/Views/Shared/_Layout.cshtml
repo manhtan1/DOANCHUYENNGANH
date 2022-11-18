@@ -1,0 +1,189 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <link href="~/Content/animate.css" rel="stylesheet" type="text/css" media="screen" />
+    <link href="~/Content/bootstrap.css" rel="stylesheet" type="text/css" media="screen" />
+    <link href="~/Content/font-awesome.css" rel="stylesheet" type="text/css" media="screen" />
+    <link href="~/Content/gozha-nav.css" rel="stylesheet" type="text/css" media="screen" />
+    <link href="~/Content/login.css" rel="stylesheet" type="text/css" media="screen" />
+    <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" media="screen" />
+    <link href="~/Content/responsive.css" rel="stylesheet" type="text/css" media="screen" />
+    <link href="~/Content/style.css" rel="stylesheet" type="text/css" media="screen" />
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" rel="stylesheet" media="screen" />
+    <!-- Roboto -->
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,100,700' rel='stylesheet' type='text/css' media="screen" />
+    <!-- Open Sans -->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:800italic' rel='stylesheet' type='text/css' media="screen" />
+
+</head>
+<body>
+    <div class="App">
+        <header class="header-wrapper header-wrapper--home">
+            <div class="container">
+                <a href='index' class="logo">
+                    <img src="~/Images/logohutech.png" alt="logo" />
+                </a>
+
+                <nav id="navigation-box">
+                    <a href="#" id="navigation-toggle">
+                        <span class="menu-icon">
+                            <span class="icon-toggle" role="button" aria-label="Toggle Navigation">
+                                <span class="lines"></span>
+                            </span>
+                        </span>
+                    </a>
+
+                    <ul id="navigation">
+                        <li>
+                            <span class="sub-nav-toggle plus"></span>
+                            <a href="/Home/Index">Phim</a>
+                            <ul>
+                                <li class="menu__nav-item"><a href="movie-page-left.html">Phim đang chiếu </a></li>
+                                <li class="menu__nav-item"><a href="movie-page-right.html">Phim sắp chiếu</a></li>
+
+                            </ul>
+                        </li>
+                        <li>
+                            <span class="sub-nav-toggle plus"></span>
+                            <a href="~/APIMap.html">Rạp chiếu</a>
+                            <ul>
+                                <li class="menu__nav-item"><a href="typography.html">Tất cả Rạp</a></li>
+                                <li class="menu__nav-item"><a href="page-elements.html">Rạp đặc biệt</a></li>
+                                <li class="menu__nav-item"><a href="column.html">Rạp sắp mở</a></li>
+
+                            </ul>
+                        </li>
+                        <li>
+                            <span class="sub-nav-toggle plus"></span>
+                            <a href="page-elements.html">Thành viên</a>
+                            <ul>
+                                <li class="menu__nav-item"><a href="book1.html">Tài khoản</a></li>
+                                <li class="menu__nav-item"><a href="book2.html">Quyền lợi</a></li>
+
+                            </ul>
+                        </li>
+                        <li>
+                            <span class="sub-nav-toggle plus"></span>
+                            <a href="gallery-four.html">Dịch vụ</a>
+                            <ul>
+                                <li class="menu__nav-item"><a href="gallery-four.html">Quầy vé Online</a></li>
+                                <li class="menu__nav-item"><a href="gallery-three.html">Đặt vé nhóm và Thuê rạp</a></li>
+                                <li class="menu__nav-item"><a href="gallery-two.html">Thẻ quà tặng</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <span class="sub-nav-toggle plus"></span>
+                            <a href="news-left.html">Thông tin</a>
+                            <ul>
+                                <li class="menu__nav-item"><a href="news-left.html">Tuyển dụng</a></li>
+                                <li class="menu__nav-item"><a href="news-right.html">Giới thiệu</a></li>
+                                <li class="menu__nav-item"><a href="news-right.html">Ưu đãi</a></li>
+
+
+                            </ul>
+                        </li>
+
+                    </ul>
+                </nav>
+
+                <div class="control-panel">
+                    <div class="auth auth--home">
+
+                        @{
+                            var session = (phim2101.Models.KhachHang)Session["TaiKhoan"];
+                        }
+
+                        @if (session == null)
+                        {
+                            <a href="/Home/DangKy" class="btn btn--sign btn--singin">
+                                Đăng nhập
+                            </a>
+                        }
+                        else
+                        {
+                            <div class="auth__show">
+                                <span class="auth__image">
+                                    <img src="~/Images/logohutech.png" alt="logo" />
+                                </span>
+                            </div>
+                            <a href="/Home/DangKy" class="btn btn--sign btn--singin">
+                                @session.TenKH
+                            </a>
+                        }
+
+                        <ul class="auth__function">
+                            <li><a href="#" class="auth__function-item">Watchlist</a></li>
+                            <li><a href="#" class="auth__function-item">Booked tickets</a></li>
+                            <li><a href="#" class="auth__function-item">Discussion</a></li>
+                            <li><a href="#" class="auth__function-item">Settings</a></li>
+                        </ul>
+
+                    </div>
+                    <a href="#" class="btn btn-md btn--warning btn--book btn-control--home login-window">Book a ticket</a>
+                </div>
+
+            </div>
+        </header>
+        <div class="bannercontainer">
+            <div class="banner">
+                <img alt='' src="~/Images/rapphim.png" />
+            </div>
+        </div>
+
+        <div class="container body-content">
+            @RenderBody()
+        </div>
+        <footer class="footer-wrapper">
+            <section class="container">
+                <div class="col-xs-4 col-md-2 footer-nav">
+                    <ul class="nav-link">
+                        <li><a href="#" class="nav-link__item">Hệ thống rạp</a></li>
+                        <li><a href="movie-list-left.html" class="nav-link__item">Phim</a></li>
+                        <li><a href="trailer.html" class="nav-link__item">Trailers</a></li>
+                        <li><a href="rates-left.html" class="nav-link__item">Đánh giá</a></li>
+                    </ul>
+                </div>
+                <div class="col-xs-4 col-md-2 footer-nav">
+                    <ul class="nav-link">
+                        <li><a href="coming-soon.html" class="nav-link__item">Sắp diễn ra</a></li>
+                        <li><a href="cinema-list.html" class="nav-link__item">Phim</a></li>
+                        <li><a href="offers.html" class="nav-link__item">Ưu đãi</a></li>
+                        <li><a href="news-left.html" class="nav-link__item">Sư kiện</a></li>
+                    </ul>
+                </div>
+                <div class="col-xs-4 col-md-2 footer-nav">
+                    <ul class="nav-link">
+                        <li><a href="#" class="nav-link__item">Điều khoản sử dụng</a></li>
+                        <li><a href="gallery-four.html" class="nav-link__item">Văn phòng</a></li>
+                        <li><a href="contact.html" class="nav-link__item">Liên hệ</a></li>
+
+                    </ul>
+                </div>
+                <div class="col-xs-12 col-md-6">
+                    <div class="footer-info">
+                        <p class="heading-special--small">Rạp Phim 2101 <span class="title-edition">in the social media </span></p>
+                        <div class="social">
+                            <a href='#' class="social__variant fa fa-facebook"></a>
+                            <a href='#' class="social__variant fa fa-twitter"></a>
+                            <a href='#' class="social__variant fa fa-vk"></a>
+                            <a href='#' class="social__variant fa fa-instagram"></a>
+                            <a href='#' class="social__variant fa fa-tumblr"></a>
+                            <a href='#' class="social__variant fa fa-pinterest"></a>
+                        </div>
+                        <div class="clearfix"></div>
+                        <p class="copy">&copy;Rạp Phim Thầy Quy, 2022. All rights reserved. Done by Olia Gozha</p>
+                    </div>
+                </div>
+            </section>
+        </footer>
+    </div>
+    @RenderSection("scripts", required: false)
+
+
+</body>
+</html>

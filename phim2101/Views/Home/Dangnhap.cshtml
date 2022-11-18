@@ -1,0 +1,55 @@
+﻿
+@{
+    ViewBag.Title = "DangNhap";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using (Html.BeginForm())
+{
+    <div class="auth-wrapper">
+        <div class="auth-container">
+            <div class="auth-action-left">
+                <div class="auth-form-outer">
+                    <h2 class="auth-form-title">
+                        Sign In
+                    </h2>
+                    <h4 style="font-size:17px; color:red;">@ViewBag.Thongbao</h4>
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="auth-external-container">
+                        <div class="auth-external-list">
+                            <ul>
+                                <li><a href="#"><i class="fa fa-google"></i></a></li>
+                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                            </ul>
+                        </div>
+                        <p class="auth-sgt">or sign in with:</p>
+                    </div>
+                    <form class="login-form">
+                        <div class="input-icon">
+                            @Html.TextBox("TenDN", "", new { placeholder = "Tên đăng nhập " })
+                        </div>
+                        @ViewData["Loi1"]
+                        <div class="input-icon">
+                            @Html.Password("MatKhau", "", new { placeholder = "Mật khẩu" })
+                        </div>
+                        @ViewData["Loi2"]
+                        <div class="footer-action">
+                            <input type="submit" value="Đăng nhập" class="auth-submit">
+                            <a href="/Home/DangKy" class="auth-btn-direct">Đăng ký</a>
+                        </div>
+                    </form>
+                    <div class="auth-forgot-password">
+                        <a href="/Home/Quenmk">Forfot Password</a>
+                    </div>
+                </div>
+            </div>
+            <div class="auth-action-right">
+                <div class="auth-image">
+                    <img src="https://i.pinimg.com/originals/41/65/e9/4165e92faa95b4b84b9ee58159496c1b.jpg" alt="login" style="width: 400px; height: 605px;">
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
