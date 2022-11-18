@@ -4,15 +4,10 @@
     ViewBag.Title = "Create";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
-
-<h2>Tạo mới</h2>
-
-
 <div class="form-horizontal">
-    <h4>Nhân Viên</h4>
-    <hr />
     <div class="row">
         <div class="col-6">
+            <h1 style="text-align:center">Thêm 1 nhân viên</h1>
             @using (Html.BeginForm())
             {
                 @Html.AntiForgeryToken()
@@ -94,6 +89,7 @@
         </div>
 
         <div class="col-6">
+            <h1 style="text-align:center">Thêm danh sách nhân viên</h1>
             @using (Html.BeginForm("ImportNVs", "NhanViens", FormMethod.Post, new { enctype = "multipart/form-data" }))
             {
                 <input type="file" name="postedFile" style="border:1px solid #ccc;display:inline-block;padding:6px 12px;cursor:pointer" />

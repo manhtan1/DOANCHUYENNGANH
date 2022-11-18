@@ -188,3 +188,4 @@ C:\Users\ADMIN\Desktop\DOANCHUYENNGANH\phim2101\bin\Microsoft.CodeDom.Providers.
 C:\Users\ADMIN\Desktop\DOANCHUYENNGANH\phim2101\obj\Debug\phim2101.csproj.CoreCompileInputs.cache
 C:\Users\ADMIN\Desktop\DOANCHUYENNGANH\phim2101\obj\Debug\phim2101.dll
 C:\Users\ADMIN\Desktop\DOANCHUYENNGANH\phim2101\obj\Debug\phim2101.pdb
+C:\Users\ADMIN\Desktop\DOANCHUYENNGANH\phim2101\obj\Debug\phim2101.csproj.AssemblyReference.cache

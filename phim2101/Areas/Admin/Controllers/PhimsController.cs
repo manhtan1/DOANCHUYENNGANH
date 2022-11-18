@@ -171,7 +171,7 @@ namespace phim2101.Areas.Admin.Controllers
                                 connExcel.Close();
 
                                 connExcel.Open();
-                                cmdExcel.CommandText = "SELECT * from [" + sheetName + "]";
+                                cmdExcel.CommandText = "SELECT *from [" + sheetName + "]";
                                 odaExcel.SelectCommand = cmdExcel;
                                 odaExcel.Fill(dtExcel);
                                 connExcel.Close();

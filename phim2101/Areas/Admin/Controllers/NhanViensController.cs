@@ -175,7 +175,7 @@ namespace phim2101.Areas.Admin.Controllers
                                 connExcel.Close();
 
                                 connExcel.Open();
-                                cmdExcel.CommandText = "SELECT * from [" + sheetName + "]";
+                                cmdExcel.CommandText = "SELECT *from [" + sheetName + "]";
                                 odaExcel.SelectCommand = cmdExcel;
                                 odaExcel.Fill(dtExcel);
                                 connExcel.Close();
@@ -188,14 +188,14 @@ namespace phim2101.Areas.Admin.Controllers
                         using (SqlBulkCopy sqlBulkCopy = new SqlBulkCopy(con))
                         {
                             sqlBulkCopy.DestinationTableName = "[dbo].[NhanVien]";
-                            sqlBulkCopy.ColumnMappings.Add("MaNV", "MaNV");
-                            sqlBulkCopy.ColumnMappings.Add("HoTenNV", "HoTenNV");
-                            sqlBulkCopy.ColumnMappings.Add("DiaChiNV", "DiaChiNV");
-                            sqlBulkCopy.ColumnMappings.Add("SDT", "SDT");
-                            sqlBulkCopy.ColumnMappings.Add("NgaySinh", "NgaySinh");
-                            sqlBulkCopy.ColumnMappings.Add("Phai", "Phai");
-                            sqlBulkCopy.ColumnMappings.Add("Luong", "Luong");
-                            sqlBulkCopy.ColumnMappings.Add("ChucVu", "ChucVu");
+                            sqlBulkCopy.ColumnMappings.Add("MaNV","MaNV");
+                            sqlBulkCopy.ColumnMappings.Add("HoTenNV","HoTenNV");
+                            sqlBulkCopy.ColumnMappings.Add("DiaChiNV","DiaChiNV");
+                            sqlBulkCopy.ColumnMappings.Add("SDT","SDT");
+                            sqlBulkCopy.ColumnMappings.Add("NgaySinh","NgaySinh");
+                            sqlBulkCopy.ColumnMappings.Add("Phai","Phai");
+                            sqlBulkCopy.ColumnMappings.Add("Luong","Luong");
+                            sqlBulkCopy.ColumnMappings.Add("ChucVu","ChucVu");
                             con.Open();
                             sqlBulkCopy.WriteToServer(dtExcel);
                             con.Close();
