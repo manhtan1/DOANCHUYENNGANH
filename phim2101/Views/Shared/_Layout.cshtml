@@ -25,18 +25,18 @@
     <div class="App">
         <header class="header-wrapper header-wrapper--home">
             <div class="container">
-                <a href='index' class="logo">
+                <a href="/Home/Index" class="logo">
                     <img src="~/Images/logohutech.png" alt="logo" />
                 </a>
 
                 <nav id="navigation-box">
-                    <a href="#" id="navigation-toggle">
+                    @*<a href="#" id="navigation-toggle">
                         <span class="menu-icon">
                             <span class="icon-toggle" role="button" aria-label="Toggle Navigation">
                                 <span class="lines"></span>
                             </span>
                         </span>
-                    </a>
+                    </a>*@
 
                     <ul id="navigation">
                         <li>
@@ -106,11 +106,11 @@
                         }
                         else
                         {
-                            <div class="auth__show">
+                            @*<div class="auth__show">
                                 <span class="auth__image">
                                     <img src="~/Images/logohutech.png" alt="logo" />
                                 </span>
-                            </div>
+                            </div>*@
                             <a href="/Home/DangKy" class="btn btn--sign btn--singin">
                                 @session.TenKH
                             </a>
@@ -124,7 +124,7 @@
                         </ul>
 
                     </div>
-                    <a href="#" class="btn btn-md btn--warning btn--book btn-control--home login-window">Book a ticket</a>
+                    @*<a href="#" class="btn btn-md btn--warning btn--book btn-control--home login-window">Book a ticket</a>*@
                 </div>
 
             </div>

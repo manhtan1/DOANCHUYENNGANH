@@ -1,7 +1,7 @@
 ﻿@model phim2101.Models.GioHangItem
 @{ ViewBag.Title = "Datve";
     Layout = "~/Views/Shared/_Layout.cshtml"; }
-<h1 style="text-align: center; color: #ffd564">Thông tin đặt vé</h1>
+<h1 style="text-align: center; color: #f5f5f5">Thông tin đặt vé</h1>
 @{ phim2101.Models.DBContext db = new phim2101.Models.DBContext();
     var phim = db.Phims.ToList();
     phim2101.Models.Phim p = phim.Find(n => n.MaPhim == Model.MaPhim);
