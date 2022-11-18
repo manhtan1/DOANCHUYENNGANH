@@ -1,14 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.Entity;
+using System.Data.OleDb;
+using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using phim2101.Models;
 
-namespace RapPhim2101.Areas.Admin.Controllers
+namespace phim2101.Areas.Admin.Controllers
 {
     public class NhanViensController : Controller
     {
@@ -46,7 +50,7 @@ namespace RapPhim2101.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "MaNV,HoTenNV,DiaChiNV,SDT,NgaySinh,Phai,Luong,Ca,ChucVu")] NhanVien nhanVien)
+        public ActionResult Create([Bind(Include = "MaNV,HoTenNV,DiaChiNV,SDT,NgaySinh,Phai,Luong,ChucVu")] NhanVien nhanVien)
         {
             if (ModelState.IsValid)
             {
@@ -78,7 +82,7 @@ namespace RapPhim2101.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "MaNV,HoTenNV,DiaChiNV,SDT,NgaySinh,Phai,Luong,Ca,ChucVu")] NhanVien nhanVien)
+        public ActionResult Edit([Bind(Include = "MaNV,HoTenNV,DiaChiNV,SDT,NgaySinh,Phai,Luong,ChucVu")] NhanVien nhanVien)
         {
             if (ModelState.IsValid)
             {
@@ -122,6 +126,89 @@ namespace RapPhim2101.Areas.Admin.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+        [HttpPost]
+        public ActionResult ImportNVs(HttpPostedFileBase postedFile)
+        {
+
+            try
+            {
+                string filePath = string.Empty;
+                if (postedFile != null)
+                {
+                    string path = Server.MapPath("~/Upload/");
+                    if (!Directory.Exists(path))
+                    {
+                        Directory.CreateDirectory(path);
+                    }
+
+                    //filePath = path + Path.GetFileName(postedFile.FileName);
+                    filePath = path + Path.GetFileName(postedFile.FileName);
+
+                    string extension = Path.GetExtension(postedFile.FileName);
+                    postedFile.SaveAs(filePath);
+
+                    string conString = string.Empty;
+                    switch (extension)
+                    {
+                        case ".xls":
+                            conString = ConfigurationManager.ConnectionStrings["Excel03ConString"].ConnectionString;
+                            break;
+                        case ".xlsx":
+                            conString = ConfigurationManager.ConnectionStrings["Excel07ConString"].ConnectionString;
+                            break;
+                    }
+
+                    DataTable dtExcel = new DataTable();
+                    conString = string.Format(conString, filePath);
+                    using (OleDbConnection connExcel = new OleDbConnection(conString))
+                    {
+                        using (OleDbCommand cmdExcel = new OleDbCommand())
+                        {
+                            using (OleDbDataAdapter odaExcel = new OleDbDataAdapter())
+                            {
+                                cmdExcel.Connection = connExcel;
+                                connExcel.Open();
+                                DataTable dtExcelSchema;
+                                dtExcelSchema = connExcel.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
+                                string sheetName = dtExcelSchema.Rows[0]["TABLE_NAME"].ToString();
+                                connExcel.Close();
+
+                                connExcel.Open();
+                                cmdExcel.CommandText = "SELECT * from [" + sheetName + "]";
+                                odaExcel.SelectCommand = cmdExcel;
+                                odaExcel.Fill(dtExcel);
+                                connExcel.Close();
+                            }
+                        }
+                    }
+                    conString = ConfigurationManager.ConnectionStrings["DBContext"].ConnectionString;
+                    using (SqlConnection con = new SqlConnection(conString))
+                    {
+                        using (SqlBulkCopy sqlBulkCopy = new SqlBulkCopy(con))
+                        {
+                            sqlBulkCopy.DestinationTableName = "[dbo].[NhanVien]";
+                            sqlBulkCopy.ColumnMappings.Add("MaNV", "MaNV");
+                            sqlBulkCopy.ColumnMappings.Add("HoTenNV", "HoTenNV");
+                            sqlBulkCopy.ColumnMappings.Add("DiaChiNV", "DiaChiNV");
+                            sqlBulkCopy.ColumnMappings.Add("SDT", "SDT");
+                            sqlBulkCopy.ColumnMappings.Add("NgaySinh", "NgaySinh");
+                            sqlBulkCopy.ColumnMappings.Add("Phai", "Phai");
+                            sqlBulkCopy.ColumnMappings.Add("Luong", "Luong");
+                            sqlBulkCopy.ColumnMappings.Add("ChucVu", "ChucVu");
+                            con.Open();
+                            sqlBulkCopy.WriteToServer(dtExcel);
+                            con.Close();
+                        }
+                    }
+
+                }
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return RedirectToAction("Index");
+            }
         }
     }
 }
