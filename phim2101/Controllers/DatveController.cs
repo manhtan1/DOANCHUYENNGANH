@@ -1,6 +1,9 @@
 ﻿using phim2101.Models;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -104,51 +107,11 @@ namespace phim2101.Controllers
             cthd.SoLuong = gh.SoLuong;
             cthd.NgayBanVe = DateTime.Now;
             db.ChiTietHDs.Add(cthd);
-            /*foreach (var v in db.Ves.ToList())
-            {
-                foreach (var h in db.Hoadons.ToList())
-                {
-                    
-                    if (v.MaVe == mave)
-                    {
-                        mave = rnd.Next(1, 1000);
-                    }
-                    else if (h.MaHD == mahd)
-                    {
-                        mahd = rnd.Next(1, 1000);
-                    }
-                    else
-                    {
-                        Ve ve = new Ve();
-                        ve.MaVe = mave;
-                        ve.MaPhim = gh.MaPhim;
-                        ve.MaPhong = gh.MaPhong;
-                        db.Ves.Add(ve);
-                        db.SaveChanges();
-                        Hoadon hd = new Hoadon();
-                        hd.MaHD = mahd;
-                        hd.MaKH = session.MaKH;
-                        hd.TongTien = gh.dthanhtien;
-                        hd.MaNV = 1;
-                        db.Hoadons.Add(hd);
-                        db.SaveChanges();
-                        ChiTietHD cthd = new ChiTietHD();
-
-                        cthd.MaHD = mahd;
-                        cthd.MaVe = mave;
-                        cthd.MaUD = 1;
-                        cthd.MaDV = 1;
-                        cthd.Ghe = gh.Ghe;
-                        cthd.SoLuong = gh.SoLuong;
-                        cthd.NgayBanVe = DateTime.Now;
-                        db.ChiTietHDs.Add(cthd);
-                    }
-                }
-            }
-*/
-            db.SaveChanges();
             lstgiohang = null;
+            db.SaveChanges();
+            
             return RedirectToAction("index", "home");
         }
+       
     }
 }
