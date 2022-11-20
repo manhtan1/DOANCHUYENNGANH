@@ -21,7 +21,14 @@
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:800italic' rel='stylesheet' type='text/css' media="screen" />
 
 </head>
+
 <body>
+   @* <style>
+        .auth--home {
+            top: -7px;
+            left: 80%;
+        }
+    </style>*@
     <div class="App">
         <header class="header-wrapper header-wrapper--home">
             <div class="container">
@@ -31,12 +38,12 @@
 
                 <nav id="navigation-box">
                     @*<a href="#" id="navigation-toggle">
-                        <span class="menu-icon">
-                            <span class="icon-toggle" role="button" aria-label="Toggle Navigation">
-                                <span class="lines"></span>
+                            <span class="menu-icon">
+                                <span class="icon-toggle" role="button" aria-label="Toggle Navigation">
+                                    <span class="lines"></span>
+                                </span>
                             </span>
-                        </span>
-                    </a>*@
+                        </a>*@
 
                     <ul id="navigation">
                         <li>
@@ -89,15 +96,10 @@
                         </li>
 
                     </ul>
-                </nav>
-
-                <div class="control-panel">
                     <div class="auth auth--home">
-
                         @{
                             var session = (phim2101.Models.KhachHang)Session["TaiKhoan"];
                         }
-
                         @if (session == null)
                         {
                             <a href="/Home/DangKy" class="btn btn--sign btn--singin">
@@ -107,25 +109,19 @@
                         else
                         {
                             @*<div class="auth__show">
-                                <span class="auth__image">
-                                    <img src="~/Images/logohutech.png" alt="logo" />
-                                </span>
-                            </div>*@
+                                    <span class="auth__image">
+                                        <img src="~/Images/logohutech.png" alt="logo" />
+                                    </span>
+                                </div>*@
                             <a href="/Home/DangKy" class="btn btn--sign btn--singin">
                                 @session.TenKH
                             </a>
                         }
-
-                        <ul class="auth__function">
-                            <li><a href="#" class="auth__function-item">Watchlist</a></li>
-                            <li><a href="#" class="auth__function-item">Booked tickets</a></li>
-                            <li><a href="#" class="auth__function-item">Discussion</a></li>
-                            <li><a href="#" class="auth__function-item">Settings</a></li>
-                        </ul>
-
                     </div>
-                    @*<a href="#" class="btn btn-md btn--warning btn--book btn-control--home login-window">Book a ticket</a>*@
-                </div>
+
+                </nav>
+
+
 
             </div>
         </header>

@@ -7,24 +7,27 @@
     phim2101.Models.Phim p = phim.Find(n => n.MaPhim == Model.MaPhim);
     var session = (phim2101.Models.KhachHang)Session["TaiKhoan"]; }
 
-<h3>Tên Phim: @p.TenPhim</h3>
-<div class="desc_tickets">
-    <br />
-    <span>Tên Khách hàng:@session.TenKH</span>
-    <br />
-    <span>Suất chiếu: @Model.SuatChieu</span>
-    <br />
-    <span>Phòng chiếu : Cinema @Model.MaPhong</span>
-    <br />
-    <span>Ghế: @Model.Ghe</span>
-    <br /><span>Giá: @Model.SoLuong * 60.000 </span>
-    <br /><span>Thành tiền: @Model.dthanhtien VND</span>
+<h3 style="text-align: center">Tên Phim: @p.TenPhim</h3>
+<div style="display:flex;justify-content:center">
+    <div class="desc_tickets" style="width:300px;">
+        <br />
+        <span>Tên Khách hàng:@session.TenKH</span>
+        <br />
+        <span>Suất chiếu: @Model.SuatChieu</span>
+        <br />
+        <span>Phòng chiếu : Cinema @Model.MaPhong</span>
+        <br />
+        <span>Ghế: @Model.Ghe</span>
+        <br /><span>Giá: @Model.SoLuong * 60.000 </span>
+        <br /><span>Thành tiền: @Model.dthanhtien VND</span>
+    </div>
 </div>
+
 
 @using (Html.BeginForm())
 {
     @Html.ValidationSummary(true)
-    <div>
+    <div style="text-align:center;padding:5px">
         <input type="submit" value="Đặt vé" class="btn btn-default" /> |
         <a href="/Datve/Trangdatve/@p.MaPhim">Trở lại trang</a>
     </div>}

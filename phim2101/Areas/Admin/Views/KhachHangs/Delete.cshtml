@@ -10,57 +10,6 @@
 <div>
     <h4>Khách hàng  @Html.DisplayFor(model => model.TenKH)</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.TenKH)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TenKH)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.SDTKH)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.SDTKH)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DiaChi)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DiaChi)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.NgaySinh)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.NgaySinh)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.matkhau)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.matkhau)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.taikhoan)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.taikhoan)
-        </dd>
-
-    </dl>
-
     @using (Html.BeginForm()) {
         @Html.AntiForgeryToken()
 

@@ -7,7 +7,41 @@
     string key = Request.QueryString["key"];
     List<Phim> result = new List<Phim>();
 }
-<span class="dplay-block page-heading heading--outcontainer">Search by</span>
+<style>
+    .theloai_item {
+        background: #fff;
+        width: 100px;
+        height: 100px;
+        overflow-y: auto;
+        position: absolute;
+        z-index: 111111;
+        border-radius: 5px;
+        margin: 0;
+        display: none;
+        animation: fadeIn linear 0.3s;
+    }
+
+        .theloai_item li {
+            padding: 10px;
+            cursor: pointer;
+        }
+
+    .title_tl {
+        position: relative;
+        cursor: pointer;
+    }
+
+    .theloai_hover:hover .theloai_item {
+        display: block;
+    }
+
+    .movie__images a img {
+        width: 100%;
+        height: 200px;
+    }
+</style>
+<div class="dplay-block page-heading heading--outcontainer" style="margin:10px 0;text-align:center;">Search by</div>
+
 <div class="form_search">
     <div style="width:200px;">
         @{
@@ -45,10 +79,10 @@
             else
             {
                 result = new Phim().searchByKey(key);
-                <h2 style=" padding: 25px 0; color: red;">Kết quả tìm kiếm từ khóa "@key"</h2>
+                <h2 style="margin:0; padding: 25px 0; color: red;">Kết quả tìm kiếm từ khóa "@key"</h2>
                 <div class="col-sm-12">
                     <div class="row">
-                        <div class="col-sm-8 col-md-9">
+                        <div class="col-sm-6 ">
                             @foreach (var i in result)
                             {
 

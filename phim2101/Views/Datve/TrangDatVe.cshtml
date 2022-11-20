@@ -108,6 +108,12 @@
         font-weight: bold;
     }
 </style>
+@{
+    phim2101.Models.DBContext db = new phim2101.Models.DBContext();
+    var phim = db.Phims.ToList();
+    var phong = db.ChiTietPhongs.ToList();
+    List<phim2101.Models.GioHangItem> lstgiohang = Session["GioHang"] as List<phim2101.Models.GioHangItem>;
+}
 <div class="place-form-area color_white">
     <section class="container">
         <div class="order-container">
@@ -157,24 +163,74 @@
                             <span class="sits__indecator">L</span>
                         </aside>
 
-                        <div class="sits__row">
-                            <span class="sits__place sits-price--cheap" data-place='A2' data-price='10'>A2</span>
-                            <span class="sits__place sits-price--cheap" data-place='A3' data-price='10'>A3</span>
-                            <span class="sits__place sits-price--cheap" data-place='A4' data-price='10'>A4</span>
-                            <span class="sits__place sits-price--cheap" data-place='A5' data-price='10'>A5</span>
-                            <span class="sits__place sits-price--cheap" data-place='A6' data-price='10'>A6</span>
-                            <span class="sits__place sits-price--cheap" data-place='A7' data-price='10'>A7</span>
-                            <span class="sits__place sits-price--cheap" data-place='A8' data-price='10'>A8</span>
-                            <span class="sits__place sits-price--cheap" data-place='A9' data-price='10'>A9</span>
-                            <span class="sits__place sits-price--cheap" data-place='A10' data-price='10'>A10</span>
-                            <span class="sits__place sits-price--cheap" data-place='A11' data-price='10'>A11</span>
-                            <span class="sits__place sits-price--cheap" data-place='A12' data-price='10'>A12</span>
-                            <span class="sits__place sits-price--cheap" data-place='A13' data-price='10'>A13</span>
-                            <span class="sits__place sits-price--cheap" data-place='A14' data-price='10'>A14</span>
-                            <span class="sits__place sits-price--cheap" data-place='A15' data-price='10'>A15</span>
-                            <span class="sits__place sits-price--cheap" data-place='A16' data-price='10'>A16</span>
-                            <span class="sits__place sits-price--cheap" data-place='A17' data-price='10'>A17</span>
-                        </div>
+                        @{
+                            var ve = db.Ves.ToList();
+                            var ct = db.ChiTietHDs.ToList();
+                            var v = db.Ves.Where(n => n.MaPhim == Model.MaPhim).ToList();
+                            int j = 2;
+                        }
+                    <div class="sits__row">
+                        @foreach (var item in v)
+                        {
+                            String ghe = "A" + j;
+                            foreach (var dh in ct)
+                            {
+
+                                if (dh.Ghe == ghe)
+                                {
+                                    <span class="sits__place sits-price--cheap sits-state--not " data-place='@ghe' data-price='10'>@ghe</span>
+                                }
+                                else
+                                {
+                                    <span class="sits__place sits-price--cheap" data-place='@ghe' data-price='10'>@ghe</span>
+                                }
+                            }
+                            j++;
+                            if (j == 17)
+                            {
+                                break;
+                            }
+                        }
+
+                    </div>
+                        @*@if (v == null)
+        {
+            <div class="sits__row">
+                @for (var i = 2; i <= 17; i++)
+                {
+                    String ghe = "A" + i;
+
+                    <span class="sits__place sits-price--cheap" data-place='@ghe' data-price='10'>@ghe</span>
+                }
+            </div>
+        }
+        else
+        {
+            <div class="sits__row">
+                @foreach (var item in v)
+                {
+                    foreach (var dh in ct)
+                    {
+                        String ghe = "A" + j;
+                        if (dh.Ghe == ghe)
+                        {
+                            <span class="sits__place sits-price--cheap sits-state--not " data-place='@ghe' data-price='10'>@ghe</span>
+                        }
+                        else
+                        {
+                            <span class="sits__place sits-price--cheap" data-place='@ghe' data-price='10'>@ghe</span>
+                        }
+
+                    }
+                    j++;
+                    if (j == 17)
+                    {
+                        break;
+                    }
+                }
+            </div>
+        }*@
+
 
                         <div class="sits__row">
                             <span class="sits__place sits-price--cheap" data-place='B1' data-price='10'>B1</span>
@@ -411,12 +467,7 @@
 
         </div>
         <div class="tickets_film">
-            @{
-                phim2101.Models.DBContext db = new phim2101.Models.DBContext();
-                var phim = db.Phims.ToList();
-                var phong = db.ChiTietPhongs.ToList();
-                List<phim2101.Models.GioHangItem> lstgiohang = Session["GioHang"] as List<phim2101.Models.GioHangItem>;
-            }
+
             @if (lstgiohang == null)
             {
                 <span class="id_phim" data-film='@Model.MaPhim'></span>
@@ -489,7 +540,7 @@
     const Idfilm = document.querySelector(".id_phim");
     const Place = document.querySelectorAll(".sits__place");
     var x = location.href;
-
+    //const Sting_ghe = ghe.textContent.split(", ");
     for (const item of Place) {
         item.addEventListener("click", function () {
             location.href = '@Url.Action("Themgiohang", "Datve")?MaPhim=' + Idfilm.dataset.film + '&ghe=' + item.dataset.place + '&strURL=' + x;

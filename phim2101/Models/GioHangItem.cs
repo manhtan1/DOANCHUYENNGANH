@@ -13,7 +13,9 @@ namespace phim2101.Models
         public string Ghe { get; set; }
         public int SoLuong { get; set; }
         public double dthanhtien
-        { get; set; }
+        { 
+            get { return SoLuong * 60000; }
+        }
         public GioHangItem(int id)
         {
             MaPhim = id;
@@ -22,7 +24,6 @@ namespace phim2101.Models
             SuatChieu = (DateTime)phong.SuatChieu;
             Ghe = "";
             SoLuong = 1;
-            dthanhtien = SoLuong * 60000;
 
         }
     }

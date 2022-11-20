@@ -137,6 +137,9 @@ namespace phim2101.Controllers
             {
                 return HttpNotFound();
             }
+            phim.luotxem += 1;
+            db.Entry(phim).State = EntityState.Modified;
+            db.SaveChanges();
             return View(phim);
         }
         [HttpGet]
@@ -190,6 +193,11 @@ namespace phim2101.Controllers
             KhachHang kh = (KhachHang)Session["TaiKhoan"];
             
         }*/
+        public ActionResult TopView()
+        {
+
+            return View(db.Phims.OrderByDescending(n=>n.luotxem).Take(5).ToList());
+        }
 
     }
 }

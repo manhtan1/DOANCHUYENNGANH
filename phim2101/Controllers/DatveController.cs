@@ -147,6 +147,7 @@ namespace phim2101.Controllers
             }
 */
             db.SaveChanges();
+            lstgiohang = null;
             return RedirectToAction("index", "home");
         }
     }

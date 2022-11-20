@@ -2150,6 +2150,7 @@
     <Content Include="Views\Datve\TrangDatVe.cshtml" />
     <Content Include="Views\Datve\Datve.cshtml" />
     <Content Include="Views\Datve\datvee.cshtml" />
+    <Content Include="Views\Home\TopView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

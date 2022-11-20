@@ -63,10 +63,18 @@
 
                     <p class="movie__option"><strong>Country: </strong><a class="movie__describe" href="#">@Model.QuocGia</a>, <a href="#">USA</a></p>
                     <p class="movie__option"><strong>Year: </strong><a class="movie__describe" href="#">@Model.ThoigianChieu</a></p>
-                    <p class="movie__option"><strong>Director: </strong><a class="movie__describe" href="#">@Model.TheLoaiPhim</a></p>
+                    @{ phim2101.Models.DBContext db = new phim2101.Models.DBContext();
+                    }
+                    @foreach (var tl in db.TheLoaiPhims.ToList())
+                    {
+                        if (tl.MaLP == Model.MaLP)
+                        {
+                            <p class="movie__option"><strong>Director: </strong><a class="movie__describe" href="#">@tl.LoaiPhim</a></p>
+                        }
+                    }
                     <p class="movie__option"><strong>Age restriction: </strong><a class="movie__describe" href="#">13</a></p>
 
-                    <a href="#" class="movie__describe comment-link">Comments:  15</a>
+                    @*<a href="#" class="movie__describe comment-link">Comments:  15</a>*@
 
                     <div class="movie__btns movie__btns--full">
                         <a href="/Datve/Trangdatve/@Model.MaPhim" class="btn btn-md btn--warning">Đặt vé</a>
@@ -106,12 +114,12 @@
         <div class="clearfix"></div>
         <!-- hiden maps with multiple locator-->
 
-        <h2 class="page-heading">comments (15)</h2>
+        <h2 class="page-heading">comments</h2>
 
         <div class="comment-wrapper">
             @{
                 var session = (phim2101.Models.KhachHang)Session["TaiKhoan"];
-                phim2101.Models.DBContext db = new phim2101.Models.DBContext();
+                //phim2101.Models.DBContext db = new phim2101.Models.DBContext();
                 var cmt = db.CT_CMT.ToList();
             }
             @if (session != null)

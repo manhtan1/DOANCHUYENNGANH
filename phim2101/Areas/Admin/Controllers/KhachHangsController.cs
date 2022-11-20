@@ -8,7 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using phim2101.Models;
 
-namespace RapPhim2101.Areas.Admin.Controllers
+namespace phim2101.Areas.Admin.Controllers
 {
     public class KhachHangsController : Controller
     {

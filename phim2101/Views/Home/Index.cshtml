@@ -24,7 +24,6 @@
         .MenuTrang li {
             display: inline;
             padding: 4px 5px;
-            background: #e7cccc;
         }
 
     .dplay-block {
@@ -272,8 +271,10 @@
             </aside>
         </div>
     </div>
-    <div class="MenuTrang">
-        @Html.PagedListPager(Model, page => Url.Action("Index", new { page = page }))
+    <div style="text-align:center">
+        <div class="MenuTrang">
+            @Html.PagedListPager(Model, page => Url.Action("Index", new { page = page }))
+        </div>
     </div>
 
 
