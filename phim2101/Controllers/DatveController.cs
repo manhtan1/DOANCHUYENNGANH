@@ -1,4 +1,5 @@
-﻿using phim2101.Models;
+﻿using phim2101.Common;
+using phim2101.Models;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -87,6 +88,7 @@ namespace phim2101.Controllers
             List<GioHangItem> lstgiohang = Session["GioHang"] as List<GioHangItem>;
             var session = (KhachHang)Session["TaiKhoan"];
             GioHangItem gh = lstgiohang.Find(n => n.MaPhim == id);
+            Phim phim = db.Phims.Find(id);
             Ve ve = new Ve();
             ve.MaPhim = gh.MaPhim;
             ve.MaPhong = gh.MaPhong;
@@ -107,9 +109,21 @@ namespace phim2101.Controllers
             cthd.SoLuong = gh.SoLuong;
             cthd.NgayBanVe = DateTime.Now;
             db.ChiTietHDs.Add(cthd);
-            lstgiohang = null;
+            Session["GioHang"] = null;
             db.SaveChanges();
-            
+            string content = System.IO.File.ReadAllText(Server.MapPath("~/Assets/Customer/template/dathang.html"));
+            var toEmail = ConfigurationManager.AppSettings["ToEmailAddress"].ToString();
+            foreach (var i in db.KhachHangs.ToList())
+            {
+                string suatchieu = "Thời gian phát" + gh.SuatChieu;
+                content = content.Replace("{{notice}}", "Bạn đã đặt vé thành công!!!!");
+                content = content.Replace("{{tenphim}}", phim.TenPhim);
+                content = content.Replace("{{suatchieu}}", suatchieu);
+                content = content.Replace("{{ghe}}", gh.Ghe);
+                new MailHelper().SendMail(i.Email, "Đặt vé thành công!!", content);
+                new MailHelper().SendMail(toEmail, "Đặt vé thành công!!", content);
+            }
+
             return RedirectToAction("index", "home");
         }
        

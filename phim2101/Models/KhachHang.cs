@@ -35,6 +35,9 @@ namespace phim2101.Models
         [StringLength(250)]
         public string matkhau { get; set; }
 
+        [StringLength(250)]
+        public string Email { get; set; }
+
         [Required]
         [StringLength(250)]
         public string taikhoan { get; set; }
