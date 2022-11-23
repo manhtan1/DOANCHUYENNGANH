@@ -143,6 +143,7 @@
     <Compile Include="Areas\Admin\Controllers\NhanViensController.cs" />
     <Compile Include="Areas\Admin\Controllers\PhimsController.cs" />
     <Compile Include="Areas\Admin\Controllers\UserController.cs" />
+    <Compile Include="Areas\Admin\Controllers\VeController.cs" />
     <Compile Include="Common\MailHelper.cs" />
     <Compile Include="Controllers\DatveController.cs" />
     <Compile Include="Models\GioHangItem.cs" />
@@ -2105,6 +2106,11 @@
     <Content Include="Assets\Admin\vendor\fontawesome-free\webfonts\fa-solid-900.woff2" />
     <Content Include="Assets\Admin\vendor\jquery\jquery.min.map" />
     <Content Include="Assets\Admin\vendor\jquery\jquery.slim.min.map" />
+    <Content Include="Areas\Admin\Views\Ve\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Ve\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Ve\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Ve\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Ve\Delete.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
