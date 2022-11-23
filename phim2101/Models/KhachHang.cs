@@ -14,7 +14,7 @@ namespace phim2101.Models
         {
             CT_CMT = new HashSet<CT_CMT>();
             Hoadons = new HashSet<Hoadon>();
-            Phims = new HashSet<Phim>();
+            Phim_Theo_Doi = new HashSet<Phim_Theo_Doi>();
         }
 
         [Key]
@@ -49,6 +49,6 @@ namespace phim2101.Models
         public virtual ICollection<Hoadon> Hoadons { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Phim> Phims { get; set; }
+        public virtual ICollection<Phim_Theo_Doi> Phim_Theo_Doi { get; set; }
     }
 }

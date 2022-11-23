@@ -15,7 +15,7 @@ namespace phim2101.Models
         {
             ChiTietPhongs = new HashSet<ChiTietPhong>();
             CT_CMT = new HashSet<CT_CMT>();
-            KhachHangs = new HashSet<KhachHang>();
+            Phim_Theo_Doi = new HashSet<Phim_Theo_Doi>();
         }
 
         [Key]
@@ -64,7 +64,7 @@ namespace phim2101.Models
         public virtual TheLoaiPhim TheLoaiPhim { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<KhachHang> KhachHangs { get; set; }
+        public virtual ICollection<Phim_Theo_Doi> Phim_Theo_Doi { get; set; }
         public List<Phim> searchByKey(string key)
         {
             DBContext db = new DBContext();

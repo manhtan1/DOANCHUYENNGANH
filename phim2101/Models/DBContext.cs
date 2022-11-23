@@ -22,6 +22,7 @@ namespace phim2101.Models
         public virtual DbSet<KhachHang> KhachHangs { get; set; }
         public virtual DbSet<NhanVien> NhanViens { get; set; }
         public virtual DbSet<Phim> Phims { get; set; }
+        public virtual DbSet<Phim_Theo_Doi> Phim_Theo_Doi { get; set; }
         public virtual DbSet<PhongChieu> PhongChieux { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<TheLoaiPhim> TheLoaiPhims { get; set; }
@@ -65,11 +66,6 @@ namespace phim2101.Models
                 .WithRequired(e => e.KhachHang)
                 .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<KhachHang>()
-                .HasMany(e => e.Phims)
-                .WithMany(e => e.KhachHangs)
-                .Map(m => m.ToTable("Phim_Theo_Doi").MapLeftKey("MaKH").MapRightKey("MaPhim"));
-
             modelBuilder.Entity<NhanVien>()
                 .Property(e => e.SDT)
                 .IsUnicode(false);
@@ -88,6 +84,10 @@ namespace phim2101.Models
                 .HasMany(e => e.CT_CMT)
                 .WithRequired(e => e.Phim)
                 .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Phim_Theo_Doi>()
+                .Property(e => e.ND)
+                .IsFixedLength();
 
             modelBuilder.Entity<PhongChieu>()
                 .HasMany(e => e.ChiTietPhongs)

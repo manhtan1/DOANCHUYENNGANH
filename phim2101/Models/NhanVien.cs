@@ -33,6 +33,7 @@ namespace phim2101.Models
         public bool? Phai { get; set; }
 
         public double? Luong { get; set; }
+
         [StringLength(50)]
         public string ChucVu { get; set; }
 

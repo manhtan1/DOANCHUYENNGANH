@@ -14,7 +14,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>phim2101</RootNamespace>
     <AssemblyName>phim2101</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
@@ -69,9 +69,9 @@
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Routing" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
@@ -146,7 +146,6 @@
     <Compile Include="Areas\Admin\Controllers\VeController.cs" />
     <Compile Include="Common\MailHelper.cs" />
     <Compile Include="Controllers\DatveController.cs" />
-    <Compile Include="Models\GioHangItem.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -164,6 +163,7 @@
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\NhanVien.cs" />
     <Compile Include="Models\Phim.cs" />
+    <Compile Include="Models\Phim_Theo_Doi.cs" />
     <Compile Include="Models\PhongChieu.cs" />
     <Compile Include="Models\sysdiagram.cs" />
     <Compile Include="Models\TheLoaiPhim.cs" />
