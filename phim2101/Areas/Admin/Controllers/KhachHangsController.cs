@@ -46,7 +46,7 @@ namespace phim2101.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "MaKH,TenKH,SDTKH,DiaChi,NgaySinh,matkhau,taikhoan")] KhachHang khachHang)
+        public ActionResult Create([Bind(Include = "MaKH,TenKH,SDTKH,DiaChi,NgaySinh,matkhau,Email,taikhoan")] KhachHang khachHang)
         {
             if (ModelState.IsValid)
             {
@@ -78,7 +78,7 @@ namespace phim2101.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "MaKH,TenKH,SDTKH,DiaChi,NgaySinh,matkhau,taikhoan")] KhachHang khachHang)
+        public ActionResult Edit([Bind(Include = "MaKH,TenKH,SDTKH,DiaChi,NgaySinh,matkhau,Emai,taikhoan")] KhachHang khachHang)
         {
             if (ModelState.IsValid)
             {

@@ -1917,10 +1917,8 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Areas\Admin\Views\Home\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\KhachHangs\Create.cshtml" />
     <Content Include="Areas\Admin\Views\KhachHangs\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\KhachHangs\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\KhachHangs\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\KhachHangs\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Login\Index.cshtml" />
     <Content Include="Areas\Admin\Views\NhanViens\Create.cshtml" />

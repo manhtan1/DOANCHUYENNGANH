@@ -73,6 +73,38 @@ namespace phim2101.Controllers
             //db.SaveChanges();
             return RedirectToAction("index", "home");
         }
+
+        /*public ActionResult XoaSP(int MaPhim)
+        {
+            List<GioHangItem> lstgiohang = Laygiohang();
+            GioHangItem product = lstgiohang.SingleOrDefault(n => n.MaPhim == MaPhim);
+            if (product != null)
+            {
+                lstgiohang.RemoveAll(n => n.MaPhim == MaPhim);
+                return RedirectToAction("GioHang");
+            }
+            if (lstgiohang.Count == 0)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            return RedirectToAction("GioHang");
+        }
+        public ActionResult UpdateSP(int MaPhim, FormCollection P)
+        {
+            List<GioHangItem> lstgiohang = Laygiohang();
+            GioHangItem ghe = lstgiohang.SingleOrDefault(n => n.MaPhim == MaPhim);
+            if (ghe != null)
+            {
+                ghe.SoLuong = int.Parse(P["Txtsl"].ToString());
+            }
+            return RedirectToAction("GioHang");
+        }
+        public ActionResult DeleteAllcart()
+        {
+            List<GioHangItem> lstgiohang = Laygiohang();
+            lstgiohang.Clear();
+            return RedirectToAction("Index", "Home");
+        }*/
         public ActionResult datvee(int? id)
         {
             List<GioHangItem> lstgiohang = Session["GioHang"] as List<GioHangItem>;

@@ -47,6 +47,7 @@ namespace phim2101.Controllers
             var taikhoan = collection["TenDN"];
             var dienthoai = collection["DienThoai"];
             var hoten = collection["hoten"];
+            var email = collection["Email"];
             var matkhau = collection["MatKhau"];
             var nhaplaimatkhau = collection["NhapLaiMatKhau"];
             var diachi = collection["DiaChi"];
@@ -79,12 +80,16 @@ namespace phim2101.Controllers
             else if (String.IsNullOrEmpty(hoten))
             {
                 ViewData["Loi1"] = "Bạn để trống họ tên";
+            }else if (String.IsNullOrEmpty(email))
+            {
+                ViewData["Loi5"] = "Bạn để trống email";
             }
             else
             {
                 kh.taikhoan = taikhoan;
                 kh.SDTKH = dienthoai;
                 kh.TenKH = hoten;
+                kh.Email = email;
                 kh.matkhau = matkhau;
                 kh.DiaChi = diachi;
                 db.KhachHangs.Add(kh);

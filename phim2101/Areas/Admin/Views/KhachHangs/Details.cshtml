@@ -36,13 +36,16 @@
             <span>
                 Số điện thoại: @Html.DisplayFor(model => model.SDTKH)
             </span>
+            <br /><span>
+                Email: @Html.DisplayFor(model => model.Email)
+            </span>
             <br />
             <span>
                 Địa chỉ: @Html.DisplayFor(model => model.DiaChi)
             </span>
             <br />
             <span>
-                Birthday: @Html.DisplayFor(model => model.NgaySinh)
+                Ngày sinh: @Html.DisplayFor(model => model.NgaySinh)
             </span>
             <br />
             <span>
@@ -58,6 +61,5 @@
     
 </div>
 <div class="btn_margin" style="text-align:center; margin-top:10px">
-    @Html.ActionLink("Chỉnh sửa", "Edit", new { id = Model.MaKH }) |
     @Html.ActionLink("Trở về", "Index")
 </div>
