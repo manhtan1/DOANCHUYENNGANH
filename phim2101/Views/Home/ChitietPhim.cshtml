@@ -78,15 +78,11 @@
 
                 <div class="movie__btns movie__btns--full">
                     <a href="/Datve/Trangdatve/@Model.MaPhim" class="btn btn-md btn--warning">Đặt vé</a>
-                    <form action="/home/theodoiphim/@Model.MaPhim" method="post">
-                        <input value="Thêm vào danh sách của bạn" class="watchlist" type="submit">
-                    </form>
-                    @using (Html.BeginForm("TheoDoiPhim", "Home", new { @id = @Model.MaPhim }))
+                    
+                    @using (Html.BeginForm("FollowFilm", "Home", new { @id = @Model.MaPhim }))
                     {
-                    <input type="submit" hidden id="heart" name="heart" value="heart">
-
+                         <input type="submit"  id="heart" class="watchlist" value="Thêm vào danh sách của bạn">
                     }
-                    @*  <a href=" @Url.Action("TheoDoiPhim","Home",new {@n=Model.MaPhim })" class="watchlist">Thêm vào danh sách của bạn</a>*@
                 </div>
 
                     <div class="share">

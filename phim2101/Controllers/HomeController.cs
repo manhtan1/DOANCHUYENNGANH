@@ -210,6 +210,28 @@ namespace phim2101.Controllers
 
             return View(db.Phims.OrderByDescending(n=>n.luotxem).Take(5).ToList());
         }
+        [HttpPost]
+        public ActionResult FollowFilm(int id)
+        {
+            Phim phim = db.Phims.Find(id);
+            return RedirectToAction("DangNhap", "Home");
+            /*KhachHang kh = (KhachHang)Session["TaiKhoan"];
+            Phim phim = db.Phims.Find(id);
+            if (kh == null)
+            {
+                return RedirectToAction("DangNhap", "Home");
+            }
+            else
+            {
+                Phim_Theo_Doi fl = new Phim_Theo_Doi();
+                fl.MaKH = kh.MaKH;
+                fl.MaPhim = phim.MaPhim;
+                db.Phim_Theo_Doi.Add(fl);
+                db.SaveChanges();
+                return RedirectToAction("Index", "Home");
+            }*/
+
+        }
 
     }
 }

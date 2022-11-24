@@ -157,6 +157,7 @@
     <Compile Include="Models\DBContext.cs" />
     <Compile Include="Models\DichVu.cs" />
     <Compile Include="Models\DinhDangPhim.cs" />
+    <Compile Include="Models\GioHangItem.cs" />
     <Compile Include="Models\Hoadon.cs" />
     <Compile Include="Models\KhachHang.cs" />
     <Compile Include="Models\LoginAdmin.cs" />
