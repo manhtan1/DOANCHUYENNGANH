@@ -17,6 +17,12 @@
         <th>
             Khách hàng
         </th>
+        <th>
+            Số ghế
+        </th>
+        <th>
+            Suất chiếu
+        </th>
     </tr>
     <tr>
         @foreach (var i in Model)
@@ -30,6 +36,12 @@
             <td>
                 @i.Hoadon.KhachHang.TenKH
             </td>
+            <td>
+                @i.Ghe
+            </td>
+            <td>
+                @i.Ve.ChiTietPhong.SuatChieu
+            </td>
         }
     </tr>
 </table>
@@ -41,7 +53,7 @@
     }
 
     td, th {
-        border: 1px solid #dddddd;
+        border: 1px solid #333333;
         text-align: left;
         padding: 8px;
     }

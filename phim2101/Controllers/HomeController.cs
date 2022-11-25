@@ -136,6 +136,32 @@ namespace phim2101.Controllers
             }
             return View();
         }
+        public ActionResult Dangxuat()
+        {
+            KhachHang kh = (KhachHang)Session["TaiKhoan"];
+            if (Session["TaiKhoan"] != null)
+            {
+                Session["TaiKhoan"] = null;
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                return RedirectToAction("DangNhap", "Home");
+            }
+        }
+        public ActionResult ThongTinTK()
+        {
+            KhachHang kh = (KhachHang)Session["TaiKhoan"];
+            if (kh == null)
+            {
+                return RedirectToAction("DangNhap", "Home");
+            }
+            else
+            {
+                return View();
+
+            }
+        }
 
         public ActionResult ChitietPhim(int id)
         {
@@ -193,37 +219,17 @@ namespace phim2101.Controllers
             //return RedirectToAction("DetailsMusic", "Home", idbaihat);
             return RedirectToAction("Index", "Home");
         }
-        public ActionResult TheoDoiPhim(int id)
-        {
-
-            KhachHang kh = (KhachHang)Session["TaiKhoan"];
-            Phim phim = db.Phims.Find(id);
-            if (kh == null)
-            {
-                return RedirectToAction("DangNhap", "Home");
-            }
-            else {
-                Phim_Theo_Doi fl = new Phim_Theo_Doi();
-                fl.MaKH = kh.MaKH;
-                fl.MaPhim = phim.MaPhim;
-                db.Phim_Theo_Doi.Add(fl);
-                db.SaveChanges();
-                return RedirectToAction("Index", "Home");
-            }
-            
-        }
+        
         public ActionResult TopView()
         {
 
             return View(db.Phims.OrderByDescending(n=>n.luotxem).Take(5).ToList());
         }
         [HttpPost]
-        public ActionResult FollowFilm(int id)
+        public ActionResult FollowFilm1(int id)
         {
             Phim phim = db.Phims.Find(id);
-            return RedirectToAction("DangNhap", "Home");
-            /*KhachHang kh = (KhachHang)Session["TaiKhoan"];
-            Phim phim = db.Phims.Find(id);
+            KhachHang kh = (KhachHang)Session["TaiKhoan"];
             if (kh == null)
             {
                 return RedirectToAction("DangNhap", "Home");
@@ -236,8 +242,20 @@ namespace phim2101.Controllers
                 db.Phim_Theo_Doi.Add(fl);
                 db.SaveChanges();
                 return RedirectToAction("Index", "Home");
-            }*/
+            }
 
+        }
+        [HttpPost]
+        public ActionResult UnFollowFilm1(int MaPhim, string strURL)
+        {
+            KhachHang kh = (KhachHang)Session["TaiKhoan"];
+            var fl = db.Phim_Theo_Doi.Where(n => n.MaKH == kh.MaKH && n.MaPhim == MaPhim).ToList();
+            foreach(var i in fl)
+            {
+                db.Phim_Theo_Doi.Remove(i);
+                db.SaveChanges();
+            }
+            return Redirect(strURL);
         }
         public ActionResult Payment(int id)
         {

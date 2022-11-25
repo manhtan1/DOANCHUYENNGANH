@@ -45,6 +45,10 @@
     }
 </style>
 <section class="container">
+    @{
+        var session = (phim2101.Models.KhachHang)Session["TaiKhoan"];
+        //phim2101.Models.DBContext db = new phim2101.Models.DBContext();
+    }
     <div class="col-sm-12">
 
         <div class="movie">
@@ -77,14 +81,27 @@
 
                     @*<a href="#" class="movie__describe comment-link">Comments:  15</a>*@
 
-                <div class="movie__btns movie__btns--full">
-                    <a href="/Datve/Trangdatve/@Model.MaPhim" class="btn btn-md btn--warning">Đặt vé</a>
-                    
-                    @using (Html.BeginForm("FollowFilm", "Home", new { @id = @Model.MaPhim }))
-                    {
-                         <input type="submit"  id="heart" class="watchlist" value="Thêm vào danh sách của bạn">
-                    }
-                </div>
+                    <div class="movie__btns movie__btns--full">
+                        <a href="/Datve/Trangdatve/@Model.MaPhim" class="btn btn-md btn--warning">Đặt vé</a>
+                        @{
+                            var fl = db.Phim_Theo_Doi.Where(n => n.MaKH == session.MaKH && n.MaPhim==Model.MaPhim).ToList();
+                        }
+                        @if (fl.Count == 0)
+                        {
+                            using (Html.BeginForm("FollowFilm1", "Home", new { @id = @Model.MaPhim }))
+                            {
+                                <input type="submit" id="heart" class="watchlist" value="Thêm vào danh sách của bạn">
+                            }
+                        }
+                        else
+                        {
+                            using (Html.BeginForm("UnFollowFilm1", "Home", new { @MaPhim = @Model.MaPhim, @strURL = "/Home/ChiTietPhim/" + Model.MaPhim }))
+                            {
+                                <input type="submit" id="heart" class="watchlist" value="Bỏ theo dõi">
+                            }
+                        }
+
+                    </div>
 
                     <div class="share">
                         <span class="share__marker">Share: </span>
@@ -105,9 +122,9 @@
             <h2 class="page-heading">photos &amp; videos</h2>
             <iframe width="1170" height="700" src="@Model.traller"></iframe>
             @*<video  controls>
-                <source src="@Model.traller" type="video/mp4">
-                <source src="@Model.traller" type="video/ogg">
-            </video>*@
+                    <source src="@Model.traller" type="video/mp4">
+                    <source src="@Model.traller" type="video/ogg">
+                </video>*@
 
 
         </div>
@@ -122,11 +139,7 @@
         <h2 class="page-heading">comments</h2>
 
         <div class="comment-wrapper">
-            @{
-                var session = (phim2101.Models.KhachHang)Session["TaiKhoan"];
-                //phim2101.Models.DBContext db = new phim2101.Models.DBContext();
-                var cmt = db.CT_CMT.ToList();
-            }
+
             @if (session != null)
             {
                 using (Html.BeginForm("Cmt", "Home", new { @id = "comment-form", @class = "comment-form", @idphim = @Model.MaPhim }))
@@ -152,6 +165,10 @@
                     <p class="comment__message">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut vitae enim sollicitudin, euismod erat id, fringilla lacus. Cras ut rutrum lectus. Etiam ante justo, volutpat at viverra a, mattis in velit. Morbi molestie rhoncus enim, vitae sagittis dolor tristique et.</p>
                     <a href='#' class="comment__reply">Reply</a>
                 </div>
+                @{
+                    var cmt = db.CT_CMT.ToList();
+
+                }
                 @foreach (var bl in cmt)
                 {
                     if (Model.MaPhim == bl.MaPhim)

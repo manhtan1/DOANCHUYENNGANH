@@ -2162,6 +2162,7 @@
     <Content Include="Views\Datve\datvee.cshtml" />
     <Content Include="Views\Home\TopView.cshtml" />
     <Content Include="Views\Home\PaymentConfirm.cshtml" />
+    <Content Include="Views\Home\ThongTinTK.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

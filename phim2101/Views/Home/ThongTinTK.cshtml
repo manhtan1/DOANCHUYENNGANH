@@ -1,0 +1,86 @@
+﻿@using System.Data;
+@using System.Data.Entity;
+@using phim2101.Models
+@{
+    ViewBag.Title = "ThongTinTK";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    td, th {
+        border: 1px solid #eeeeee;
+        text-align: left;
+        padding: 8px;
+        background: #383838;
+    }
+
+    tr:nth-child(even) {
+        background-color: #dddddd;
+    }
+</style>
+
+<h2>Thông tin tài khoản</h2>
+<div class="col-sm-12">
+    <div class="row">
+        @{
+            var session = (phim2101.Models.KhachHang)Session["TaiKhoan"];
+            phim2101.Models.DBContext db = new phim2101.Models.DBContext();
+            var fl = db.Phim_Theo_Doi.Include(n => n.Phim).ToList();
+            var user = db.ChiTietHDs.Include(n => n.Hoadon).Include(n => n.Ve.ChiTietPhong.Phim).ToList();
+            string str = "home/thongtintk";
+        }
+        <div class="col-sm-6">
+            <h2>Thông tin Phim đang theo dõi</h2>
+            <ul>
+                @foreach (var item in fl)
+                {
+                <li>
+                    <span>@item.Phim.TenPhim</span>
+                    <a href="/home/Chitietphim/@item.MaPhim">bỏ theo dõi</a>
+                </li>
+                }
+            </ul>
+        </div>
+        <div class="col-sm-6">
+            <h2>Thông tin vé đã đặt</h2>
+            <table>
+                <tr>
+                    <th>
+                        Tên Phòng
+                    </th>
+                    <th>
+                        Tên Phim
+                    </th>
+                    <th>
+                        Số ghế
+                    </th>
+                    <th>Suất chiếu</th>
+                </tr>
+                <tr>
+                    @foreach (var i in user)
+                    {
+                        <td>
+                            @i.Ve.ChiTietPhong.PhongChieu.TenPhong
+                        </td>
+                        <td>
+                            @i.Ve.ChiTietPhong.Phim.TenPhim
+                        </td>
+                        <td>
+                            @i.Ghe
+                        </td>
+                        <td>
+                            @i.Ve.ChiTietPhong.SuatChieu
+                        </td>
+                    }
+                </tr>
+            </table>
+        </div>
+    </div>
+
+</div>
+

@@ -262,6 +262,7 @@ button,
 select,
 textarea {
     font-family: inherit;
+    color:red;
     font-size: inherit;
     line-height: inherit;
 }
@@ -810,7 +811,7 @@ h1 {
 }
 
 h2 {
-    color: #4c4145;
+    color: white;
     font-size: 27px;
     font-family: 'aleoregular', sans-serif;
     margin-top: 70px;

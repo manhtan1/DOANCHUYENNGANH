@@ -27,6 +27,29 @@
         nav ul{
             overflow:inherit;
         }
+        .hover_tk{
+            position:relative;
+        }
+        .auth--home:hover .item_chucnang {
+            display: block;
+            opacity: 1;
+        }
+            .item_chucnang {
+                position: absolute;
+                margin: 0;
+                background: #fff;
+                top: 40px;
+                left: 110px;
+                background-color: #4C4145;
+                padding: 10px;
+                width: 150px;
+                list-style: none;
+                display: none;
+                opacity:0;
+            }
+        .item_chucnang li{
+            padding:10px 5px;
+        }
     </style>
     <div class="App">
         <header class="header-wrapper header-wrapper--home">
@@ -99,13 +122,27 @@
                         else
                         {
                             @*<div class="auth__show">
-                                    <span class="auth__image">
-                                        <img src="~/Images/logohutech.png" alt="logo" />
-                                    </span>
-                                </div>*@
-                            <a href="/Home/DangKy" class="btn btn--sign btn--singin">
+                <span class="auth__image">
+                    <img src="~/Images/logohutech.png" alt="logo" />
+                </span>
+            </div>*@
+                            <a href="/Home/DangKy" class="btn btn--sign btn--singin hover_tk">
                                 @session.TenKH
+
                             </a>
+                            <ul class="item_chucnang">
+                                <li>
+                                    <a href="/home/ThongtinTK">Thông Tin tài khoản</a>
+
+                                </li>
+                                <li>
+                                    <a href="/home/dangxuat">Đăng xuất</a>
+
+                                </li>
+
+                            </ul>
+
+
                         }
                     </div>
 
