@@ -170,6 +170,9 @@
     <Compile Include="Models\TheLoaiPhim.cs" />
     <Compile Include="Models\UuDai.cs" />
     <Compile Include="Models\Ve.cs" />
+    <Compile Include="Others\PayCompare.cs" />
+    <Compile Include="Others\PayLib.cs" />
+    <Compile Include="Others\Ultil.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -2105,11 +2108,11 @@
     <Content Include="Assets\Admin\vendor\fontawesome-free\webfonts\fa-solid-900.woff2" />
     <Content Include="Assets\Admin\vendor\jquery\jquery.min.map" />
     <Content Include="Assets\Admin\vendor\jquery\jquery.slim.min.map" />
-    <Content Include="Areas\Admin\Views\Ve\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Ve\Details.cshtml" />
     <Content Include="Areas\Admin\Views\Ve\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Ve\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Ve\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Ve\Index.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -2158,6 +2161,7 @@
     <Content Include="Views\Datve\Datve.cshtml" />
     <Content Include="Views\Datve\datvee.cshtml" />
     <Content Include="Views\Home\TopView.cshtml" />
+    <Content Include="Views\Home\PaymentConfirm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

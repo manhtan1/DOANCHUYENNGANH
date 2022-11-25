@@ -1,41 +1,53 @@
-﻿@model IEnumerable<phim2101.Models.Ve>
+﻿@model IEnumerable<phim2101.Models.ChiTietHD>
 
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
+<h2>Quản lý vé</h2>
+<table>
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.MaPhong)
+            Tên Phòng
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.MaPhim)
+            Tên Phim
         </th>
-        <th></th>
+        <th>
+            Khách hàng
+        </th>
     </tr>
-
-@foreach (var item in Model) {
     <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.MaPhong)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MaPhim)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.MaVe }) |
-            @Html.ActionLink("Details", "Details", new { id=item.MaVe }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.MaVe })
-        </td>
+        @foreach (var i in Model)
+        {
+            <td>
+                @i.Ve.ChiTietPhong.PhongChieu.TenPhong
+            </td>
+            <td>
+                @i.Ve.ChiTietPhong.Phim.TenPhim
+            </td>
+            <td>
+                @i.Hoadon.KhachHang.TenKH
+            </td>
+        }
     </tr>
-}
-
 </table>
+<style>
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #dddddd;
+    }
+</style>
 

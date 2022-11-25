@@ -15,7 +15,7 @@ namespace phim2101.Areas.Admin.Controllers
         // GET: Admin/Ve
         public ActionResult Index()
         {
-            return View(db.Ves.ToList());
+            return View(db.ChiTietHDs.Include(n=>n.Ve.ChiTietPhong).Include(i=>i.Hoadon).ToList());
         }
 
         // GET: Admin/Ves/Details/5

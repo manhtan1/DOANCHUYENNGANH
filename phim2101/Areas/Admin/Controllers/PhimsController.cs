@@ -109,10 +109,19 @@ namespace phim2101.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Phim phim = db.Phims.Find(id);
-            db.Phims.Remove(phim);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            var chiTietPhong = db.ChiTietPhongs.Where(n => n.MaPhim == id).ToList();
+            if (chiTietPhong==null)
+            {
+                Phim phim = db.Phims.Find(id);
+                db.Phims.Remove(phim);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
         }
 
         protected override void Dispose(bool disposing)
