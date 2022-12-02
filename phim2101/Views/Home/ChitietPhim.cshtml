@@ -81,13 +81,12 @@
                     @*<a href="#" class="movie__describe comment-link">Comments:  15</a>*@
 
                 <div class="movie__btns movie__btns--full">
-                    <a href="/Datve/Trangdatve/@Model.MaPhim" class="btn btn-md btn--warning">Đặt vé</a>
                     
                     @if (session == null)
                     {
                         using (Html.BeginForm("FollowFilm1", "Home", new { @id = @Model.MaPhim }))
                         {
-                            <input type="submit" id="heart" class="watchlist" value="Thêm vào danh sách của bạn">
+                            <input type="submit" id="heart" class="btn btn-md btn--warning" value="Thêm vào danh sách của bạn">
                         }
                     }
                     else
@@ -97,14 +96,14 @@
                         {
                             using (Html.BeginForm("FollowFilm1", "Home", new { @id = @Model.MaPhim }))
                             {
-                                <input type="submit" id="heart" class="watchlist" value="Thêm vào danh sách của bạn">
+                                <input type="submit" id="heart" class="btn btn-md btn--warning" value="Thêm vào danh sách của bạn">
                             }
                         }
                         else
                         {
                             using (Html.BeginForm("UnFollowFilm1", "Home", new { @MaPhim = @Model.MaPhim, @strURL = "/Home/ChiTietPhim/" + Model.MaPhim }))
                             {
-                                <input type="submit" id="heart" class="watchlist" value="Bỏ theo dõi">
+                                <input type="submit" id="heart" class="btn btn-md btn--warning" value="Bỏ theo dõi">
                             }
                         }
                     }

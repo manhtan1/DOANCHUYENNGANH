@@ -34,19 +34,22 @@
             var user = db.ChiTietHDs.Include(n => n.Hoadon).Include(n => n.Ve.ChiTietPhong.Phim).ToList();
             string str = "home/thongtintk";
         }
-        <div class="col-sm-6">
+        <div class="col-sm-4">
             <h2>Thông tin Phim đang theo dõi</h2>
             <ul>
                 @foreach (var item in fl)
                 {
                 <li>
-                    <span>@item.Phim.TenPhim</span>
-                    <a href="/home/Chitietphim/@item.MaPhim">bỏ theo dõi</a>
+                    @if (item.MaKH == session.MaKH)
+                    {
+                        <span>@item.Phim.TenPhim</span>
+                        <a href="/home/Chitietphim/@item.MaPhim">bỏ theo dõi</a>
+                    }
                 </li>
                 }
             </ul>
         </div>
-        <div class="col-sm-6">
+        <div class="col-sm-8">
             <h2>Thông tin vé đã đặt</h2>
             <table>
                 <tr>
@@ -60,24 +63,53 @@
                         Số ghế
                     </th>
                     <th>Suất chiếu</th>
+                    <th>Tình trạng</th>
+                    <th></th>
+
+
                 </tr>
                 @foreach (var i in user)
                 {
-                    <tr>
+                    if (i.Hoadon.MaKH == session.MaKH)
+                    {
+            <tr>
 
-                        <td>
-                            @i.Ve.ChiTietPhong.PhongChieu.TenPhong
-                        </td>
-                        <td>
-                            @i.Ve.ChiTietPhong.Phim.TenPhim
-                        </td>
-                        <td>
-                            @i.Ghe
-                        </td>
-                        <td>
-                            @i.Ve.ChiTietPhong.SuatChieu
-                        </td>
-                    </tr>
+                <td>
+                    @i.Ve.ChiTietPhong.PhongChieu.TenPhong
+                </td>
+                <td>
+                    @i.Ve.ChiTietPhong.Phim.TenPhim
+                </td>
+                <td>
+                    @i.Ghe
+                </td>
+                <td>
+                    @i.Ve.ChiTietPhong.SuatChieu
+                </td>
+                <td>
+                    @if (i.Status == true)
+                    {
+                        <span style="font-style:italic; font-size:12px; color:#00ff00">Đã thanh toán</span>
+                    }
+                    else
+                    {
+                        <span style="font-style:italic; font-size:12px; color:#ff0000">Chưa thanh toán</span>
+                    }
+                </td>
+                <td>
+                    @if (i.Status == true)
+                    {
+
+                    }
+                    else
+                    {
+                        <a href="@Url.Action("Huyve", "Home", new { @mave = i.MaVe,@idhoadon= i.MaHD })">Hủy vé</a>
+
+                    }
+                </td>
+
+            </tr>
+                    }
 
                 }
             </table>

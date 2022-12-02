@@ -1,0 +1,77 @@
+﻿@model IEnumerable<phim2101.Models.ChiTietHD>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Quản lý vé</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            Mã Khách hàng
+        </th>
+        <th>
+            Mã phim
+        </th>
+        <th>
+            Ghế
+        </th>
+        <th>
+            Ngày mua vé
+        </th>
+        <th>
+            Số tiền
+        </th>
+        <th>
+            Trạng thái
+        </th>
+        <th></th>
+        
+    </tr>
+
+@foreach (var item in Model) {
+<tr>
+    <td>
+        @item.Hoadon.MaKH
+    </td>
+    <td>
+        @item.Ve.MaPhim
+    </td>
+    <td>
+        @item.Ghe
+    </td>
+    <td>
+        @item.NgayBanVe
+    </td>
+    <td>
+        @item.Hoadon.TongTien
+    </td>
+    <td class="hover_status">
+        <a href="@Url.Action("Status", "ChiTietHDs", new { @idhoadon = item.MaHD,@idve= item.MaVe })">@Html.DisplayFor(modelItem => item.Status)</a>
+    </td>
+    <td>
+        @if (item.Status == true)
+        {
+
+        }
+        else
+        {
+            if (DateTime.Now > item.Ve.ChiTietPhong.SuatChieu)
+            {
+                <a href="@Url.Action("Delete", "ChiTietHDs", new { @idhoadon = item.MaHD,@idve= item.MaVe })">Vé quá hạn</a>
+            }
+        }
+    </td>
+
+</tr>
+}
+
+</table>
+<script></script>
+<style>
+    .hover_status{
+        cursor:pointer;
+    }
+</style>

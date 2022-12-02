@@ -51,8 +51,6 @@ namespace phim2101.Areas.Admin.Controllers
             }
             return View();
         }
-
-        // GET: Admin/Ves/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -66,8 +64,6 @@ namespace phim2101.Areas.Admin.Controllers
             }
             return View(ve);
         }
-
-        // GET: Admin/Ves/Create
         public ActionResult Create()
         {
             return View();

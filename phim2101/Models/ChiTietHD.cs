@@ -25,7 +25,7 @@ namespace phim2101.Models
 
         [StringLength(10)]
         public string Ghe { get; set; }
-
+        public bool Status { get; set; }
         public DateTime? NgayBanVe { get; set; }
 
         public int? SoLuong { get; set; }

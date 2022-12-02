@@ -23,6 +23,9 @@
         <th>
             Suất chiếu
         </th>
+        <th>
+            Trạng thái
+        </th>
     </tr>
     @foreach (var i in Model)
     {
@@ -42,6 +45,16 @@
             </td>
             <td>
                 @i.Ve.ChiTietPhong.SuatChieu
+            </td>
+            <td>
+                @if (i.Status == true)
+                {
+                    <span>Hoàn thành</span>
+                }
+                else
+                {
+                    <span>Chưa hoàn thành</span>
+                }
             </td>
         </tr>
 

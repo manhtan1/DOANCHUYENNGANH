@@ -339,5 +339,18 @@ namespace phim2101.Controllers
             return View();
         }
         
+        public ActionResult Huyve(int mave,int idhoadon)
+        {
+            var session = (KhachHang)Session["TaiKhoan"];
+            Hoadon hd = db.Hoadons.Find(idhoadon);
+            Ve v = db.Ves.Find(idhoadon);
+            ChiTietHD cthd = db.ChiTietHDs.SingleOrDefault(n => n.MaVe == mave && n.MaHD == idhoadon);
+            db.ChiTietHDs.Remove(cthd);
+            db.SaveChanges();
+            db.Hoadons.Remove(hd);
+            db.Ves.Remove(v);
+            db.SaveChanges();
+            return RedirectToAction("index", "Home");
+        }
     }
 }

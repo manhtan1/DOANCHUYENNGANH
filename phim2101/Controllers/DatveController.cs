@@ -118,7 +118,7 @@ namespace phim2101.Controllers
             db.ChiTietHDs.Add(cthd);
             Session["GioHang"] = null;
             db.SaveChanges();
-            string content = System.IO.File.ReadAllText(Server.MapPath("~/Assets/Customer/template/dathang.html"));
+            /*string content = System.IO.File.ReadAllText(Server.MapPath("~/Assets/Customer/template/dathang.html"));
             var toEmail = ConfigurationManager.AppSettings["ToEmailAddress"].ToString();
             foreach (var i in db.KhachHangs.ToList())
             {
@@ -129,7 +129,7 @@ namespace phim2101.Controllers
                 content = content.Replace("{{ghe}}", gh.Ghe);
                 new MailHelper().SendMail(i.Email, "Đặt vé thành công!!", content);
                 new MailHelper().SendMail(toEmail, "Đặt vé thành công!!", content);
-            }
+            }*/
 
             return RedirectToAction("index", "home");
         }
