@@ -2151,6 +2151,7 @@
     <Content Include="Areas\Admin\Views\Ve\Index.cshtml" />
     <Content Include="Areas\Admin\Views\KhachHangs\Create.cshtml" />
     <Content Include="Areas\Admin\Views\KhachHangs\Editt.cshtml" />
+    <Content Include="Areas\Admin\Views\Home\DangNhap.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
