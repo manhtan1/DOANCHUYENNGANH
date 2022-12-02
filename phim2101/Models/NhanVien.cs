@@ -38,6 +38,9 @@ namespace phim2101.Models
         [StringLength(50)]
         public string ChucVu { get; set; }
 
+        [StringLength(50)]
+        public string Ca { get; set; }
+
         [Required]
         [StringLength(50)]
         public string UserName { get; set; }

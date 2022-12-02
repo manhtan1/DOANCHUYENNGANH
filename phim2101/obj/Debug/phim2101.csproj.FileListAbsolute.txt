@@ -742,3 +742,4 @@ C:\Users\ADMIN\Downloads\DOANCHUYENNGANH\phim2101\bin\Microsoft.CodeDom.Provider
 C:\Users\ADMIN\Downloads\DOANCHUYENNGANH\phim2101\obj\Debug\phim2101.csproj.CoreCompileInputs.cache
 C:\Users\ADMIN\Downloads\DOANCHUYENNGANH\phim2101\obj\Debug\phim2101.dll
 C:\Users\ADMIN\Downloads\DOANCHUYENNGANH\phim2101\obj\Debug\phim2101.pdb
+C:\Users\ADMIN\Downloads\DOANCHUYENNGANH\phim2101\obj\Debug\phim2101.csproj.AssemblyReference.cache

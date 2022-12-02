@@ -16,13 +16,40 @@ namespace phim2101.Areas.Admin.Controllers
         public ActionResult Index()
         {
             var phims = db.Phims.Include(p => p.DinhDangPhim).Include(p => p.TheLoaiPhim);
+            DateTime currentTime = DateTime.Now;
+            DateTime star1 = new DateTime(currentTime.Year, currentTime.Month, currentTime.Day, 7, 0, 0);
+            DateTime end1 = new DateTime(currentTime.Year, currentTime.Month, currentTime.Day, 14, 0, 0);
+            DateTime start2 = new DateTime(currentTime.Year, currentTime.Month, currentTime.Day, 14, 15, 0);
+            DateTime end2 = new DateTime(currentTime.Year, currentTime.Month, currentTime.Day, 21, 15, 0);
             NhanVien nv = (NhanVien)Session["user"];
             var count = db.PhanQuyens.Count(m => m.MaNV == nv.MaNV && m.IDChucnang == 3);
             if (count == 0)
             {
                 return Redirect("/Admin/Baoloi/khongcapquyen");
             }
-            return View(db.ChiTietHDs.Include(n=>n.Ve.ChiTietPhong).Include(i=>i.Hoadon).ToList());
+            else if (nv.Ca == "Ca1")
+            {
+                if (currentTime < end1 && currentTime > star1)
+                {
+                    return View(db.ChiTietHDs.Include(n => n.Ve.ChiTietPhong).Include(i => i.Hoadon).ToList());
+                }
+                else
+                {
+                    return Redirect("/admin/home/ngoaithoigian");
+                }
+            }
+            else if (nv.Ca == "Ca2")
+            {
+                if (currentTime < end2 && currentTime > start2)
+                {
+                    return View(db.ChiTietHDs.Include(n => n.Ve.ChiTietPhong).Include(i => i.Hoadon).ToList());
+                }
+                else
+                {
+                    return Redirect("/admin/home/ngoaithoigian");
+                }
+            }
+            return View();
         }
 
         // GET: Admin/Ves/Details/5

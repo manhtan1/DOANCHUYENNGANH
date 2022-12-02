@@ -56,5 +56,9 @@ namespace phim2101.Areas.Admin.Controllers
             Session["user"] = null;
             return Redirect("/admin/home/dangnhap");
         }
+        public ActionResult ngoaithoigian()
+        {
+            return View();
+        }
     }
 }

@@ -2149,6 +2149,7 @@
     <Content Include="Areas\Admin\Views\KhachHangs\Editt.cshtml" />
     <Content Include="Areas\Admin\Views\Home\DangNhap.cshtml" />
     <Content Include="Areas\Admin\Views\BaoLoi\khongcapquyen.cshtml" />
+    <Content Include="Areas\Admin\Views\Home\ngoaithoigian.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
