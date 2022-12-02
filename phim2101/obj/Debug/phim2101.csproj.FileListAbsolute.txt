@@ -739,7 +739,6 @@ C:\Users\ADMIN\Downloads\DOANCHUYENNGANH\phim2101\bin\System.Web.WebPages.Razor.
 C:\Users\ADMIN\Downloads\DOANCHUYENNGANH\phim2101\bin\Newtonsoft.Json.xml
 C:\Users\ADMIN\Downloads\DOANCHUYENNGANH\phim2101\bin\Antlr3.Runtime.pdb
 C:\Users\ADMIN\Downloads\DOANCHUYENNGANH\phim2101\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-C:\Users\ADMIN\Downloads\DOANCHUYENNGANH\phim2101\obj\Debug\phim2101.csproj.AssemblyReference.cache
 C:\Users\ADMIN\Downloads\DOANCHUYENNGANH\phim2101\obj\Debug\phim2101.csproj.CoreCompileInputs.cache
 C:\Users\ADMIN\Downloads\DOANCHUYENNGANH\phim2101\obj\Debug\phim2101.dll
 C:\Users\ADMIN\Downloads\DOANCHUYENNGANH\phim2101\obj\Debug\phim2101.pdb

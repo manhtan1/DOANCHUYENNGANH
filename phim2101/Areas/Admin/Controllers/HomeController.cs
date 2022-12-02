@@ -1,9 +1,16 @@
 ﻿using phim2101.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
+using System.Configuration;
 using System.Web;
+using PagedList;
+using PagedList.Mvc;
 using System.Web.Mvc;
+using System.Threading.Tasks;
+using phim2101.Others;
+using System.IO;
 
 namespace phim2101.Areas.Admin.Controllers
 {
@@ -14,7 +21,14 @@ namespace phim2101.Areas.Admin.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            if (Session["user"] == null)
+            {
+                return RedirectToAction("Dangnhap");
+            }
+            else
+            {
+                return View();
+            }
         }
         public ActionResult DangNhap()
         {
@@ -24,10 +38,10 @@ namespace phim2101.Areas.Admin.Controllers
         public ActionResult DangNhap(string user, string pw)
         {
             var nhanvien = db.NhanViens.SingleOrDefault(m => m.UserName.ToLower() == user.ToLower() && m.Password == pw);
-            if (nhanvien !=null)
+            if (nhanvien != null)
             {
-                Session["user"] = user;
-                return RedirectToAction("Index", "Home");
+                Session["user"] = nhanvien;
+                return RedirectToAction("Index");
             }
             else
             {
@@ -36,6 +50,11 @@ namespace phim2101.Areas.Admin.Controllers
             }
             
 
+        }
+        public ActionResult Dangxuat()
+        {
+            Session["user"] = null;
+            return Redirect("/admin/home/dangnhap");
         }
     }
 }

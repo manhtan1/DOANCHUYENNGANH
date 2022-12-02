@@ -17,6 +17,13 @@ namespace phim2101.Areas.Admin.Controllers
         // GET: Admin/KhachHangs
         public ActionResult Index()
         {
+            var phims = db.Phims.Include(p => p.DinhDangPhim).Include(p => p.TheLoaiPhim);
+            NhanVien nv = (NhanVien)Session["user"];
+            var count = db.PhanQuyens.Count(m => m.MaNV == nv.MaNV && m.IDChucnang == 1);
+            if (count == 0)
+            {
+                return Redirect("/Admin/Baoloi/khongcapquyen");
+            }
             return View(db.KhachHangs.ToList());
         }
 

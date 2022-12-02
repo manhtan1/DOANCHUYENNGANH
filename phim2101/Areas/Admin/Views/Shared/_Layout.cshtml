@@ -25,6 +25,7 @@
 <body id="page-top">
 
     <!-- Page Wrapper -->
+    
     <div id="wrapper">
 
         <!-- Sidebar -->
@@ -35,19 +36,9 @@
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
-                @{
-                    var session = (phim2101.Models.NhanVien)HttpContext.Current.Session["user"];
+                
+                <div class="sidebar-brand-text mx-3"> ADMIN <sup></sup></div>
 
-
-                }
-                @if (session == null)
-                {
-                    <div class="sidebar-brand-text mx-3"> Admin <sup></sup></div>
-                }
-                else
-                {
-                    <div class="sidebar-brand-text mx-3"> @session.HoTenNV <sup></sup></div>
-                }
 
             </a>
 
@@ -285,7 +276,10 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">ADMIN</span>
+                                @{
+                                    var session1 = (phim2101.Models.NhanVien)HttpContext.Current.Session["user"];
+                                }
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">@session1.HoTenNV</span>
                                 <img class="img-profile rounded-circle"
                                      src="~/Assets/Admin/img/undraw_profile.svg">
                             </a>
@@ -305,7 +299,7 @@
                                     Activity Log
                                 </a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                <a class="" href="/admin/home/dangxuat" >
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Logout
                                 </a>

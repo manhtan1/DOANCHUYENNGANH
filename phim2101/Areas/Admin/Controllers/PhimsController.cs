@@ -26,6 +26,13 @@ namespace phim2101.Areas.Admin.Controllers
             int pageSize = 10;
             int pageNum = (page ?? 1);
             var phims = db.Phims.Include(p => p.DinhDangPhim).Include(p => p.TheLoaiPhim);
+            NhanVien nv = (NhanVien)Session["user"];
+            var count = db.PhanQuyens.Count(m => m.MaNV == nv.MaNV && m.IDChucnang == 2);
+            if (count == 0)
+            {
+                return Redirect("/Admin/Baoloi/khongcapquyen");
+            }
+
             return View(phims.ToList().ToPagedList(pageNum, pageSize));
         }
 
