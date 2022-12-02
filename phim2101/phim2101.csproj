@@ -186,6 +186,7 @@
     </Compile>
     <Compile Include="Models\ChiTietHD.cs" />
     <Compile Include="Models\ChiTietPhong.cs" />
+    <Compile Include="Models\ChucNang.cs" />
     <Compile Include="Models\CT_CMT.cs" />
     <Compile Include="Models\C__MigrationHistory.cs" />
     <Compile Include="Models\DBContext.cs" />
@@ -197,6 +198,7 @@
     <Compile Include="Models\LoginAdmin.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\NhanVien.cs" />
+    <Compile Include="Models\PhanQuyen.cs" />
     <Compile Include="Models\Phim.cs" />
     <Compile Include="Models\Phim_Theo_Doi.cs" />
     <Compile Include="Models\PhongChieu.cs" />

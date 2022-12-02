@@ -13,6 +13,7 @@ namespace phim2101.Models
         public NhanVien()
         {
             Hoadons = new HashSet<Hoadon>();
+            PhanQuyens = new HashSet<PhanQuyen>();
         }
 
         [Key]
@@ -37,7 +38,18 @@ namespace phim2101.Models
         [StringLength(50)]
         public string ChucVu { get; set; }
 
+        [Required]
+        [StringLength(50)]
+        public string UserName { get; set; }
+
+        [Required]
+        [StringLength(50)]
+        public string Password { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Hoadon> Hoadons { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PhanQuyen> PhanQuyens { get; set; }
     }
 }

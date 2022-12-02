@@ -15,12 +15,14 @@ namespace phim2101.Models
         public virtual DbSet<C__MigrationHistory> C__MigrationHistory { get; set; }
         public virtual DbSet<ChiTietHD> ChiTietHDs { get; set; }
         public virtual DbSet<ChiTietPhong> ChiTietPhongs { get; set; }
+        public virtual DbSet<ChucNang> ChucNangs { get; set; }
         public virtual DbSet<CT_CMT> CT_CMT { get; set; }
         public virtual DbSet<DichVu> DichVus { get; set; }
         public virtual DbSet<DinhDangPhim> DinhDangPhims { get; set; }
         public virtual DbSet<Hoadon> Hoadons { get; set; }
         public virtual DbSet<KhachHang> KhachHangs { get; set; }
         public virtual DbSet<NhanVien> NhanViens { get; set; }
+        public virtual DbSet<PhanQuyen> PhanQuyens { get; set; }
         public virtual DbSet<Phim> Phims { get; set; }
         public virtual DbSet<Phim_Theo_Doi> Phim_Theo_Doi { get; set; }
         public virtual DbSet<PhongChieu> PhongChieux { get; set; }
@@ -36,6 +38,11 @@ namespace phim2101.Models
                 .WithRequired(e => e.ChiTietPhong)
                 .HasForeignKey(e => new { e.MaPhong, e.MaPhim })
                 .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<ChucNang>()
+                .HasMany(e => e.PhanQuyens)
+                .WithRequired(e => e.ChucNang)
+                .HasForeignKey(e => e.IDChucnang);
 
             modelBuilder.Entity<DichVu>()
                 .HasMany(e => e.ChiTietHDs)
