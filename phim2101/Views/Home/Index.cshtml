@@ -114,7 +114,7 @@
             @{
                 phim2101.Models.DBContext db = new phim2101.Models.DBContext();
                 var theloai = db.TheLoaiPhims.ToList();
-                var phimmoi = db.Phims.ToList();
+                var phimmoi = db.Phims.OrderByDescending(a=>a.ThoigianChieu>DateTime.Now).Take(3).ToList();
                 var topphim = db.Phims.OrderByDescending(a => a.ThoigianChieu < DateTime.Now).Take(6).ToList();
             }
             @foreach (var item in topphim)

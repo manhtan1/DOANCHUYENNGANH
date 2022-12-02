@@ -52,7 +52,25 @@ namespace phim2101.Areas.Admin.Controllers
             ViewBag.MaLP = new SelectList(db.TheLoaiPhims, "MaLP", "LoaiPhim");
             return View();
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "MaPhim,MaDP,TenPhim,QuocGia,MaLP,traller,hinhtraller,MoTa,thoiluong,ThoigianChieu,ThoiGianKetThuc,luotxem")] Phim phim)
+        {
+            if (ModelState.IsValid)
+            {
+                var p1 = db.Phims.ToList();
+                Phim p = p1.LastOrDefault();
+                phim.MaPhim = p.MaPhim + 1;
+                phim.luotxem = 0;
+                db.Phims.Add(phim);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
 
+            ViewBag.MaDP = new SelectList(db.DinhDangPhims, "MaDP", "DangPhim", phim.MaDP);
+            ViewBag.MaLP = new SelectList(db.TheLoaiPhims, "MaLP", "LoaiPhim", phim.MaLP);
+            return View(phim);
+        }
 
 
         public ActionResult Edit(int? id)

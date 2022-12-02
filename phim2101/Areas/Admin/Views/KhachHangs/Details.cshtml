@@ -4,62 +4,72 @@
     ViewBag.Title = "Details";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
-<style>
-    .flex_user{
-        display:flex;
-        justify-content:center;
-    }
-    .w400px{
-        width: 400px;
-    }
-    .w400px span{
-        display:inline-block;
-        padding: 10px 0;
-    }
-    .btn_margin a {
-        margin: 0 5px;
-        text-decoration: none;
-        border-radius: 5px;
-        background: #f6c23e;
-        padding:7px;
-    }
-</style>
+
+<h2>Chi tiết</h2>
+
 <div>
-    <h4 style="text-align:center">Thông tin Khách Hàng</h4>
+    <h4>Khách hàng</h4>
     <hr />
-    <div class="flex_user">
-        <div class="w400px">
-            <span>
-                Tên khách hàng: @Html.DisplayFor(model => model.TenKH)
-            </span>
-            <br />
-            <span>
-                Số điện thoại: @Html.DisplayFor(model => model.SDTKH)
-            </span>
-            <br /><span>
-                Email: @Html.DisplayFor(model => model.Email)
-            </span>
-            <br />
-            <span>
-                Địa chỉ: @Html.DisplayFor(model => model.DiaChi)
-            </span>
-            <br />
-            <span>
-                Ngày sinh: @Html.DisplayFor(model => model.NgaySinh)
-            </span>
-            <br />
-            <span>
-                Tài khoản: @Html.DisplayNameFor(model => model.taikhoan)
-            </span>
-            <br />
-            <span>
-                Mật Khẩu: ********
-                @* @Html.DisplayFor(model => model.matkhau)*@
-            </span>
-        </div>
-    </div>
-    
+    <dl class="dl-horizontal">
+        <dt>
+            Tên khách hàng
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TenKH)
+        </dd>
+
+        <dt>
+            Số điện thoại
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SDTKH)
+        </dd>
+
+        <dt>
+            Địa chỉ
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DiaChi)
+        </dd>
+
+        <dt>
+            Ngày sinh
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NgaySinh)
+        </dd>
+
+        @*<dt>
+                @Html.DisplayNameFor(model => model.matkhau)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.matkhau)
+            </dd>*@
+
+        <dt>
+            Email
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        @*<dt>
+                @Html.DisplayNameFor(model => model.taikhoan)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.taikhoan)
+            </dd>*@
+
+    </dl>
 </div>
-<div class="btn_margin" style="text-align:center; margin-top:10px">
+<p>
+    @Html.ActionLink("Chỉnh sửa", "Edit", new { id = Model.MaKH }) |
     @Html.ActionLink("Trở về", "Index")
-</div>
+</p>

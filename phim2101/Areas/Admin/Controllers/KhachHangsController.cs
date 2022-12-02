@@ -46,7 +46,7 @@ namespace phim2101.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "MaKH,TenKH,SDTKH,DiaChi,NgaySinh,matkhau,Email,taikhoan")] KhachHang khachHang)
+        public ActionResult Create([Bind(Include = "MaKH,TenKH,SDTKH,DiaChi,NgaySinh,taikhoan,matkhau,Email")] KhachHang khachHang)
         {
             if (ModelState.IsValid)
             {
@@ -59,7 +59,7 @@ namespace phim2101.Areas.Admin.Controllers
         }
 
         // GET: Admin/KhachHangs/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Editt(int? id)
         {
             if (id == null)
             {
@@ -78,10 +78,13 @@ namespace phim2101.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "MaKH,TenKH,SDTKH,DiaChi,NgaySinh,matkhau,Emai,taikhoan")] KhachHang khachHang)
+        public ActionResult Editt([Bind(Include = "MaKH,TenKH,SDTKH,DiaChi,NgaySinh ,taikhoan,matkhau,Emai")] KhachHang khachHang)
         {
             if (ModelState.IsValid)
             {
+                KhachHang kh = db.KhachHangs.Find(khachHang.MaKH);
+                /*khachHang.taikhoan = kh.taikhoan;
+                khachHang.matkhau =kh.matkhau;*/
                 db.Entry(khachHang).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

@@ -16,10 +16,10 @@ namespace phim2101.Models
         { 
             get { return SoLuong * 60000; }
         }
-        public GioHangItem(int id)
+        public GioHangItem(int id,int idphong)
         {
             MaPhim = id;
-            ChiTietPhong phong = db.ChiTietPhongs.Single(n => n.MaPhim == id);
+            ChiTietPhong phong = db.ChiTietPhongs.SingleOrDefault(n => n.MaPhim == id && n.MaPhong==idphong);
             MaPhong = phong.MaPhong;
             SuatChieu = (DateTime)phong.SuatChieu;
             Ghe = "";

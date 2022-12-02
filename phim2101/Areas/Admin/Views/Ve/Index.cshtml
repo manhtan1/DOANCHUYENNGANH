@@ -24,9 +24,10 @@
             Suất chiếu
         </th>
     </tr>
-    <tr>
-        @foreach (var i in Model)
-        {
+    @foreach (var i in Model)
+    {
+        <tr>
+
             <td>
                 @i.Ve.ChiTietPhong.PhongChieu.TenPhong
             </td>
@@ -42,8 +43,9 @@
             <td>
                 @i.Ve.ChiTietPhong.SuatChieu
             </td>
-        }
-    </tr>
+        </tr>
+
+    }
 </table>
 <style>
     table {

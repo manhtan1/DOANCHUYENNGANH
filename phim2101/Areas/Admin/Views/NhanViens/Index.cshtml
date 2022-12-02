@@ -47,7 +47,14 @@
             @Html.DisplayFor(modelItem => item.NgaySinh)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Phai)
+            @if (item.Phai == true)
+            {
+                <span>Nam</span>
+            }
+            else
+            {
+                <span>Nữ</span>
+            }
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.ChucVu)

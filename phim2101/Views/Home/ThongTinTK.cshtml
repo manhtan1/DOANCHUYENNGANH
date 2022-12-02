@@ -61,9 +61,10 @@
                     </th>
                     <th>Suất chiếu</th>
                 </tr>
-                <tr>
-                    @foreach (var i in user)
-                    {
+                @foreach (var i in user)
+                {
+                    <tr>
+
                         <td>
                             @i.Ve.ChiTietPhong.PhongChieu.TenPhong
                         </td>
@@ -76,8 +77,9 @@
                         <td>
                             @i.Ve.ChiTietPhong.SuatChieu
                         </td>
-                    }
-                </tr>
+                    </tr>
+
+                }
             </table>
         </div>
     </div>

@@ -3,7 +3,7 @@
 
 @using System.Data;
 @using System.Data.SqlClient;
-@model phim2101.Models.Phim
+@model phim2101.Models.ChiTietPhong
 @{
     ViewBag.Title = "TrangDatVe";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -107,22 +107,25 @@
         position: relative;
     }
 
-
     .text_title {
         color: #16a34a;
         font-weight: bold;
     }
+
     .sits-state--not {
         pointer-events: none;
     }
-    .sits__row span{
-        color:#000 !important;
+
+    .sits__row span {
+        color: #000 !important;
     }
 </style>
 @{
     phim2101.Models.DBContext db = new phim2101.Models.DBContext();
     var phim = db.Phims.ToList();
     var phong = db.ChiTietPhongs.ToList();
+    var ve = db.Ves.ToList();
+    var cthd = db.ChiTietHDs.ToList();
     List<phim2101.Models.GioHangItem> lstgiohang = Session["GioHang"] as List<phim2101.Models.GioHangItem>;
 }
 <div class="place-form-area color_white">
@@ -175,38 +178,40 @@
                         </aside>
 
                         @{
-                            var ve = db.Ves.ToList();
-                            var ct = db.ChiTietHDs.Include(p => p.Ve).Where(n => n.Ve.MaPhim == Model.MaPhim).ToList();
+                            //var ve = db.Ves.ToList();
+                            //var ct = db.ChiTietHDs.Include(p => p.Ve).Where(n => n.Ve.MaPhim == Model.MaPhim).ToList();
                             SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["DBContext"].ConnectionString);
                             con.Open();
                             @*SqlDataAdapter da_kiemtra = new SqlDataAdapter("select a.MaPhim,b.Ghe from Ve as a, ChiTietHD as b where a.MaVe=b.MaVe and a.MaPhim=" + Model.MaPhim + " and b.Ghe like '" + ghe + "'", con);
-                            DataTable dt_kiemtra = new DataTable();
-                            da_kiemtra.Fill(dt_kiemtra);*@
-                        }
-                        
-                        <div class="sits__row">
-                            @for (int i = 2; i <= 17; i++)
-                            {
-                                String ghe = "A" + i;
-                                SqlDataAdapter da_kiemtra = new SqlDataAdapter("select a.MaPhim,b.Ghe from Ve as a, ChiTietHD as b where a.MaVe=b.MaVe and a.MaPhim=" + Model.MaPhim + " and b.Ghe like '" + ghe + "'", con);
                                 DataTable dt_kiemtra = new DataTable();
-                                da_kiemtra.Fill(dt_kiemtra);
-                                if (dt_kiemtra.Rows.Count > 0)
-                                {
-                                    <span class="sits__place sits-price--cheap sits-state--not " data-place='@ghe' data-price='10'>@ghe</span>
-                                }
-                                else
-                                {
-                                    <span class="sits__place sits-price--cheap" data-place='@ghe' data-price='10'>@ghe</span>
+                                da_kiemtra.Fill(dt_kiemtra);*@
+                        }
 
-                                }
+                    <div class="sits__row">
+                        @for (int i = 2; i <= 17; i++)
+                        {
+                            String ghe = "A" + i;
+                            SqlDataAdapter da_kiemtra = new SqlDataAdapter("select a.MaPhim,a.MaPhong,b.Ghe from Ve as a, ChiTietHD as b where a.MaVe=b.MaVe and a.MaPhim=" + Model.MaPhim + " and a.MaPhong=" + Model.MaPhong + " and b.Ghe like '" + ghe + "'", con);
+
+                            DataTable dt_kiemtra = new DataTable();
+                            da_kiemtra.Fill(dt_kiemtra);
+                            if (dt_kiemtra.Rows.Count > 0)
+                            {
+                                <span class="sits__place sits-price--cheap sits-state--not " data-place='@ghe' data-price='10'>@ghe</span>
                             }
-                        </div>
+                            else
+                            {
+                                <span class="sits__place sits-price--cheap" data-place='@ghe' data-price='10'>@ghe</span>
+
+                            }
+                        }
+                    </div>
                         <div class="sits__row">
                             @for (int i = 1; i <= 18; i++)
                             {
                                 String ghe = "B" + i;
-                                SqlDataAdapter da_kiemtra = new SqlDataAdapter("select a.MaPhim,b.Ghe from Ve as a, ChiTietHD as b where a.MaVe=b.MaVe and a.MaPhim=" + Model.MaPhim + " and b.Ghe like '" + ghe + "'", con);
+                                SqlDataAdapter da_kiemtra = new SqlDataAdapter("select a.MaPhim,a.MaPhong,b.Ghe from Ve as a, ChiTietHD as b where a.MaVe=b.MaVe and a.MaPhim=" + Model.MaPhim + " and a.MaPhong=" + Model.MaPhong + " and b.Ghe like '" + ghe + "'", con);
+
                                 DataTable dt_kiemtra = new DataTable();
                                 da_kiemtra.Fill(dt_kiemtra);
                                 if (dt_kiemtra.Rows.Count > 0)
@@ -225,8 +230,8 @@
                             @for (int i = 1; i <= 18; i++)
                             {
                                 String ghe = "C" + i;
-                                
-                                SqlDataAdapter da_kiemtra = new SqlDataAdapter("select a.MaPhim,b.Ghe from Ve as a, ChiTietHD as b where a.MaVe=b.MaVe and a.MaPhim=" + Model.MaPhim + " and b.Ghe like '" + ghe + "'", con);
+
+                                SqlDataAdapter da_kiemtra = new SqlDataAdapter("select a.MaPhim,a.MaPhong,b.Ghe from Ve as a, ChiTietHD as b where a.MaVe=b.MaVe and a.MaPhim=" + Model.MaPhim + " and a.MaPhong=" + Model.MaPhong + " and b.Ghe like '" + ghe + "'", con);
                                 DataTable dt_kiemtra = new DataTable();
                                 da_kiemtra.Fill(dt_kiemtra);
                                 if (dt_kiemtra.Rows.Count > 0)
@@ -245,7 +250,7 @@
                             @for (int i = 1; i <= 18; i++)
                             {
                                 String ghe = "D" + i;
-                                SqlDataAdapter da_kiemtra = new SqlDataAdapter("select a.MaPhim,b.Ghe from Ve as a, ChiTietHD as b where a.MaVe=b.MaVe and a.MaPhim=" + Model.MaPhim + " and b.Ghe like '" + ghe + "'", con);
+                                SqlDataAdapter da_kiemtra = new SqlDataAdapter("select a.MaPhim,a.MaPhong,b.Ghe from Ve as a, ChiTietHD as b where a.MaVe=b.MaVe and a.MaPhim=" + Model.MaPhim +" and a.MaPhong="+Model.MaPhong+ " and b.Ghe like '" + ghe + "'", con);
                                 DataTable dt_kiemtra = new DataTable();
                                 da_kiemtra.Fill(dt_kiemtra);
                                 if (dt_kiemtra.Rows.Count > 0)
@@ -264,7 +269,8 @@
                             @for (int i = 1; i <= 18; i++)
                             {
                                 String ghe = "E" + i;
-                                SqlDataAdapter da_kiemtra = new SqlDataAdapter("select a.MaPhim,b.Ghe from Ve as a, ChiTietHD as b where a.MaVe=b.MaVe and a.MaPhim=" + Model.MaPhim + " and b.Ghe like '" + ghe + "'", con);
+                                SqlDataAdapter da_kiemtra = new SqlDataAdapter("select a.MaPhim,a.MaPhong,b.Ghe from Ve as a, ChiTietHD as b where a.MaVe=b.MaVe and a.MaPhim=" + Model.MaPhim + " and a.MaPhong=" + Model.MaPhong + " and b.Ghe like '" + ghe + "'", con);
+
                                 DataTable dt_kiemtra = new DataTable();
                                 da_kiemtra.Fill(dt_kiemtra);
                                 if (dt_kiemtra.Rows.Count > 0)
@@ -283,7 +289,7 @@
                             @for (int i = 1; i <= 18; i++)
                             {
                                 String ghe = "F" + i;
-                                SqlDataAdapter da_kiemtra = new SqlDataAdapter("select a.MaPhim,b.Ghe from Ve as a, ChiTietHD as b where a.MaVe=b.MaVe and a.MaPhim=" + Model.MaPhim + " and b.Ghe like '" + ghe + "'", con);
+                                SqlDataAdapter da_kiemtra = new SqlDataAdapter("select a.MaPhim,a.MaPhong,b.Ghe from Ve as a, ChiTietHD as b where a.MaVe=b.MaVe and a.MaPhim=" + Model.MaPhim + " and a.MaPhong=" + Model.MaPhong + " and b.Ghe like '" + ghe + "'", con);
                                 DataTable dt_kiemtra = new DataTable();
                                 da_kiemtra.Fill(dt_kiemtra);
                                 if (dt_kiemtra.Rows.Count > 0)
@@ -302,7 +308,7 @@
                             @for (int i = 1; i <= 18; i++)
                             {
                                 String ghe = "G" + i;
-                                SqlDataAdapter da_kiemtra = new SqlDataAdapter("select a.MaPhim,b.Ghe from Ve as a, ChiTietHD as b where a.MaVe=b.MaVe and a.MaPhim=" + Model.MaPhim + " and b.Ghe like '" + ghe + "'", con);
+                                SqlDataAdapter da_kiemtra = new SqlDataAdapter("select a.MaPhim,a.MaPhong,b.Ghe from Ve as a, ChiTietHD as b where a.MaVe=b.MaVe and a.MaPhim=" + Model.MaPhim + " and a.MaPhong=" + Model.MaPhong + " and b.Ghe like '" + ghe + "'", con);
                                 DataTable dt_kiemtra = new DataTable();
                                 da_kiemtra.Fill(dt_kiemtra);
                                 if (dt_kiemtra.Rows.Count > 0)
@@ -321,7 +327,7 @@
                             @for (int i = 3; i <= 16; i++)
                             {
                                 String ghe = "I" + i;
-                                SqlDataAdapter da_kiemtra = new SqlDataAdapter("select a.MaPhim,b.Ghe from Ve as a, ChiTietHD as b where a.MaVe=b.MaVe and a.MaPhim=" + Model.MaPhim + " and b.Ghe like '" + ghe + "'", con);
+                                SqlDataAdapter da_kiemtra = new SqlDataAdapter("select a.MaPhim,a.MaPhong,b.Ghe from Ve as a, ChiTietHD as b where a.MaVe=b.MaVe and a.MaPhim=" + Model.MaPhim + " and a.MaPhong=" + Model.MaPhong + " and b.Ghe like '" + ghe + "'", con);
                                 DataTable dt_kiemtra = new DataTable();
                                 da_kiemtra.Fill(dt_kiemtra);
                                 if (dt_kiemtra.Rows.Count > 0)
@@ -340,8 +346,9 @@
                             @for (int i = 5; i <= 14; i++)
                             {
                                 String ghe = "J" + i;
-                                
-                                SqlDataAdapter da_kiemtra = new SqlDataAdapter("select a.MaPhim,b.Ghe from Ve as a, ChiTietHD as b where a.MaVe=b.MaVe and a.MaPhim=" + Model.MaPhim + " and b.Ghe like '" + ghe + "'", con);
+
+                                SqlDataAdapter da_kiemtra = new SqlDataAdapter("select a.MaPhim,a.MaPhong,b.Ghe from Ve as a, ChiTietHD as b where a.MaVe=b.MaVe and a.MaPhim=" + Model.MaPhim + " and a.MaPhong=" + Model.MaPhong + " and b.Ghe like '" + ghe + "'", con);
+
                                 DataTable dt_kiemtra = new DataTable();
                                 da_kiemtra.Fill(dt_kiemtra);
                                 if (dt_kiemtra.Rows.Count > 0)
@@ -360,8 +367,8 @@
                             @for (int i = 5; i <= 14; i++)
                             {
                                 String ghe = "K" + i;
-                                
-                                SqlDataAdapter da_kiemtra = new SqlDataAdapter("select a.MaPhim,b.Ghe from Ve as a, ChiTietHD as b where a.MaVe=b.MaVe and a.MaPhim=" + Model.MaPhim + " and b.Ghe like '" + ghe + "'", con);
+                                SqlDataAdapter da_kiemtra = new SqlDataAdapter("select a.MaPhim,a.MaPhong,b.Ghe from Ve as a, ChiTietHD as b where a.MaVe=b.MaVe and a.MaPhim=" + Model.MaPhim + " and a.MaPhong=" + Model.MaPhong + " and b.Ghe like '" + ghe + "'", con);
+
                                 DataTable dt_kiemtra = new DataTable();
                                 da_kiemtra.Fill(dt_kiemtra);
                                 if (dt_kiemtra.Rows.Count > 0)
@@ -380,8 +387,8 @@
                             @for (int i = 6; i <= 13; i++)
                             {
                                 String ghe = "L" + i;
-                                
-                                SqlDataAdapter da_kiemtra = new SqlDataAdapter("select a.MaPhim,b.Ghe from Ve as a, ChiTietHD as b where a.MaVe=b.MaVe and a.MaPhim=" + Model.MaPhim + " and b.Ghe like '" + ghe + "'", con);
+                                SqlDataAdapter da_kiemtra = new SqlDataAdapter("select a.MaPhim,a.MaPhong,b.Ghe from Ve as a, ChiTietHD as b where a.MaVe=b.MaVe and a.MaPhim=" + Model.MaPhim + " and a.MaPhong=" + Model.MaPhong + " and b.Ghe like '" + ghe + "'", con);
+
                                 DataTable dt_kiemtra = new DataTable();
                                 da_kiemtra.Fill(dt_kiemtra);
                                 if (dt_kiemtra.Rows.Count > 0)
@@ -455,20 +462,17 @@
             @if (lstgiohang == null)
             {
                 <span class="id_phim" data-film='@Model.MaPhim'></span>
+                <span class="id_phong" data-phong='@Model.MaPhong'></span>
+
                 <div class="price_film"><span class="text_title"></span>0 VND</div>
                 <hr class="bg-gray-400" style="height: 1px;">
-                <div class="name_film">Tên phim: <span class="text_title"> @Model.TenPhim</span></div>
+                <div class="name_film">Tên phim: <span class="text_title"> @Model.Phim.TenPhim</span></div>
                 <hr class="bg-gray-400" style="height: 1px;">
-                foreach (var i in phong)
-                {
-                    if (i.MaPhim == Model.MaPhim)
-                    {
-                        <div class="date_watch">Ngày chiếu: <span class="text_title">@i.SuatChieu</span></div>
-                    }
-                }
+                <div class="date_watch">Ngày chiếu: <span class="text_title">@Model.SuatChieu</span></div>
                 <hr class="bg-gray-400" style="height: 1px;">
                 <div class="chair">
-                    Ghế ngồi: <span class="btn--danger"></span>
+                    Ghế ngồi: <span class="string_ghe btn--danger"></span>
+
                 </div>
                 <hr class="bg-gray-400" style="height: 1px;">
                 <button class="buy_tickets">Đặt vé</button>
@@ -480,20 +484,16 @@
                 if (gh == null)
                 {
                     <span class="id_phim" data-film='@Model.MaPhim'></span>
+                    <span class="id_phong" data-phong='@Model.MaPhong'></span>
+
                     <div class="price_film"><span class="text_title"></span>0 VND</div>
                     <hr class="bg-gray-400" style="height: 1px;">
-                    <div class="name_film">Tên phim: <span class="text_title"> @Model.TenPhim</span></div>
+                    <div class="name_film">Tên phim: <span class="text_title"> @Model.Phim.TenPhim</span></div>
                     <hr class="bg-gray-400" style="height: 1px;">
-                    foreach (var i in phong)
-                    {
-                        if (i.MaPhim == Model.MaPhim)
-                        {
-                            <div class="date_watch">Ngày chiếu: <span class="text_title">@i.SuatChieu</span></div>
-                        }
-                    }
+                    <div class="date_watch">Ngày chiếu: <span class="text_title">@Model.SuatChieu</span></div>
                     <hr class="bg-gray-400" style="height: 1px;">
                     <div class="chair">
-                        Ghế ngồi: <span class="btn--danger"></span>
+                        Ghế ngồi: <span class="string_ghe btn--danger"></span>
                     </div>
                     <hr class="bg-gray-400" style="height: 1px;">
                     <button class="buy_tickets">Đặt vé</button>
@@ -501,9 +501,11 @@
                 else
                 {
                     <span class="id_phim" data-film='@Model.MaPhim'></span>
+                    <span class="id_phong" data-phong='@Model.MaPhong'></span>
+
                     <div class="price_film"><span class="text_title"></span>@gh.dthanhtien VND</div>
                     <hr class="bg-gray-400" style="height: 1px;">
-                    <div class="name_film">Tên phim: <span class="text_title"> @Model.TenPhim</span></div>
+                    <div class="name_film">Tên phim: <span class="text_title"> @Model.Phim.TenPhim</span></div>
                     <hr class="bg-gray-400" style="height: 1px;">
                     <div class="date_watch">Ngày chiếu: <span class="text_title">@gh.SuatChieu</span></div>
                     <hr class="bg-gray-400" style="height: 1px;">
@@ -511,7 +513,7 @@
                         Ghế ngồi: <span class="string_ghe btn--danger">@gh.Ghe</span>
                     </div>
                     <hr class="bg-gray-400" style="height: 1px;">
-                    <button class="buy_tickets"><a href="/DatVe/datvee/@Model.MaPhim">Đặt vé</a></button>
+                    <button class="buy_tickets">Đặt vé</button>
                 }
 
             }
@@ -521,17 +523,32 @@
 </div>
 <script>
     const ghe = document.querySelector('.string_ghe');
+    const IdPhong = document.querySelector('.id_phong');
     const Idfilm = document.querySelector(".id_phim");
     const Place = document.querySelectorAll(".sits__place");
+    const buy_ticketNull = document.querySelector('.buy_tickets');
     var x = location.href;
-    //const Sting_ghe = ghe.textContent.split(", ");
     for (const item of Place) {
         item.addEventListener("click", function () {
-            location.href = '@Url.Action("Themgiohang", "Datve")?MaPhim=' + Idfilm.dataset.film + '&ghe=' + item.dataset.place + '&strURL=' + x;
+            location.href = '@Url.Action("Themgiohang", "Datve")?MaPhim=' + Idfilm.dataset.film + '&idphong=' + IdPhong.dataset.phong + '&ghe=' + item.dataset.place + '&strURL=' + x;
             item.classList.add('sits-state--not');
         })
+        const stringGhe = ghe.textContent.split(", ");
+        for (const i of stringGhe) {
+            if (i == item.dataset.place) {
+                item.classList.add('sits-state--not');
+            }
+        }
     }
-    //ghe ="F7",
+    buy_ticketNull.addEventListener("click", function () {
+        if (ghe.textContent == '') {
+            alert("Bạn không thể đặt vé nếu không chọn ghế !!!!");
+        }
+        else {
+            //console.log("/Datve/datvee/" + Idfilm.dataset.film);
+            location.href ="/Datve/datvee/" + Idfilm.dataset.film;
+        }
+    })
 </script>
 @*const Ghe = item.dataset.place;
     let Ghe = item.dataset.place;
@@ -540,4 +557,3 @@
 @*//window.location=@Url.Action("Themgiohang", "Datve")
     //location.href = '@Url.Action("Themgiohang", "Datve", new { @MaPhim = 8, @strURL = Request.Url.ToString() })';
     //location.href = '@Url.Action("Themgiohang", "Datve")?MaPhim=' + 8 + '&strURL=' + parsedQuery*@
-

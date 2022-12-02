@@ -3,6 +3,8 @@ using phim2101.Models;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data.Entity;
+
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
@@ -14,12 +16,13 @@ namespace phim2101.Controllers
     public class DatveController : Controller
     {
         private DBContext db = new DBContext();
-        public ActionResult TrangDatVe(int id)
+        public ActionResult TrangDatVe(int id, int phong)
         {
-            /*List<GioHangItem> lstgiohang = Laygiohang();
-            GioHangItem product = lstgiohang.Find(n => n.MaPhim == id);*/
-            Phim phim = db.Phims.Find(id);
-            if (phim == null)
+            Phim phim1 = db.Phims.Find(id);
+
+            var p1 = db.ChiTietPhongs.Include(n=>n.Phim).SingleOrDefault(n=>n.MaPhim==id && n.MaPhong==phong );
+
+            if (p1 == null)
             {
                 return HttpNotFound();
             }
@@ -27,7 +30,12 @@ namespace phim2101.Controllers
             {
                 return RedirectToAction("DangNhap", "Home");
             }
-            return View(phim);
+
+            /*foreach (var i in p1)
+            {
+                return View(i);
+            }*/
+            return View(p1);
         }
         public List<GioHangItem> Laygiohang()
         {
@@ -39,14 +47,14 @@ namespace phim2101.Controllers
             }
             return lstgiohang;
         }
-        public ActionResult Themgiohang(int MaPhim, string ghe, string strURL)
+        public ActionResult Themgiohang(int MaPhim, int idphong, string ghe, string strURL)
         {
             List<GioHangItem> lstgiohang = Laygiohang();
             GioHangItem product = lstgiohang.Find(n => n.MaPhim == MaPhim);
             var site = ghe;
             if (product == null)
             {
-                product = new GioHangItem(MaPhim);
+                product = new GioHangItem(MaPhim, idphong);
                 product.Ghe = site;
                 lstgiohang.Add(product);
                 return Redirect(strURL);
@@ -59,52 +67,19 @@ namespace phim2101.Controllers
                 return Redirect(strURL);
             }
         }
-        public ActionResult Datve(int ? id)
+        public ActionResult Datve(int? id)
         {
             List<GioHangItem> lstgiohang = Session["GioHang"] as List<GioHangItem>;
             GioHangItem gh = lstgiohang.Find(n => n.MaPhim == id);
             return View(gh);
         }
+
         [HttpPost]
         public ActionResult Datve(int id)
         {
-            
-            
             //db.SaveChanges();
             return RedirectToAction("index", "home");
         }
-
-        /*public ActionResult XoaSP(int MaPhim)
-        {
-            List<GioHangItem> lstgiohang = Laygiohang();
-            GioHangItem product = lstgiohang.SingleOrDefault(n => n.MaPhim == MaPhim);
-            if (product != null)
-            {
-                lstgiohang.RemoveAll(n => n.MaPhim == MaPhim);
-                return RedirectToAction("GioHang");
-            }
-            if (lstgiohang.Count == 0)
-            {
-                return RedirectToAction("Index", "Home");
-            }
-            return RedirectToAction("GioHang");
-        }
-        public ActionResult UpdateSP(int MaPhim, FormCollection P)
-        {
-            List<GioHangItem> lstgiohang = Laygiohang();
-            GioHangItem ghe = lstgiohang.SingleOrDefault(n => n.MaPhim == MaPhim);
-            if (ghe != null)
-            {
-                ghe.SoLuong = int.Parse(P["Txtsl"].ToString());
-            }
-            return RedirectToAction("GioHang");
-        }
-        public ActionResult DeleteAllcart()
-        {
-            List<GioHangItem> lstgiohang = Laygiohang();
-            lstgiohang.Clear();
-            return RedirectToAction("Index", "Home");
-        }*/
         public ActionResult datvee(int? id)
         {
             List<GioHangItem> lstgiohang = Session["GioHang"] as List<GioHangItem>;
@@ -158,6 +133,6 @@ namespace phim2101.Controllers
 
             return RedirectToAction("index", "home");
         }
-       
+
     }
 }

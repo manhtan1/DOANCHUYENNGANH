@@ -8,7 +8,11 @@ using System.Web;
 using PagedList;
 using PagedList.Mvc;
 using System.Web.Mvc;
+using System.Threading.Tasks;
 using phim2101.Others;
+using System.IO;
+using Microsoft.AspNetCore.Mvc;
+
 
 namespace phim2101.Controllers
 {
@@ -334,5 +338,6 @@ namespace phim2101.Controllers
 
             return View();
         }
+        
     }
 }
