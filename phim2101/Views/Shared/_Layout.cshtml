@@ -19,37 +19,40 @@
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,100,700' rel='stylesheet' type='text/css' media="screen" />
     <!-- Open Sans -->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:800italic' rel='stylesheet' type='text/css' media="screen" />
-
 </head>
 
 <body>
     <style>
-        nav ul{
-            overflow:inherit;
+        nav ul {
+            overflow: inherit;
         }
-        .hover_tk{
-            position:relative;
+
+        .hover_tk {
+            position: relative;
         }
+
         .auth--home:hover .item_chucnang {
             display: block;
             opacity: 1;
         }
-            .item_chucnang {
-                position: absolute;
-                margin: 0;
-                background: #fff;
-                top: 40px;
-                left: 110px;
-                background-color: #4C4145;
-                padding: 10px;
-                width: 150px;
-                list-style: none;
-                display: none;
-                opacity:0;
-            }
-        .item_chucnang li{
-            padding:10px 5px;
+
+        .item_chucnang {
+            position: absolute;
+            margin: 0;
+            background: #fff;
+            top: 40px;
+            left: 110px;
+            background-color: #4C4145;
+            padding: 10px;
+            width: 150px;
+            list-style: none;
+            display: none;
+            opacity: 0;
         }
+
+            .item_chucnang li {
+                padding: 10px 5px;
+            }
     </style>
     <div class="App">
         <header class="header-wrapper header-wrapper--home">
@@ -122,10 +125,10 @@
                         else
                         {
                             @*<div class="auth__show">
-                <span class="auth__image">
-                    <img src="~/Images/logohutech.png" alt="logo" />
-                </span>
-            </div>*@
+                                    <span class="auth__image">
+                                        <img src="~/Images/logohutech.png" alt="logo" />
+                                    </span>
+                                </div>*@
                             <a href="/Home/DangKy" class="btn btn--sign btn--singin hover_tk">
                                 @session.TenKH
 
@@ -191,13 +194,13 @@
                     <div class="footer-info">
                         <p class="heading-special--small">Rạp Phim 2101 <span class="title-edition">in the Hutech University </span></p>
                         @*<div class="social">
-                            <a href='#' class="social__variant fa fa-facebook"></a>
-                            <a href='#' class="social__variant fa fa-twitter"></a>
-                            <a href='#' class="social__variant fa fa-vk"></a>
-                            <a href='#' class="social__variant fa fa-instagram"></a>
-                            <a href='#' class="social__variant fa fa-tumblr"></a>
-                            <a href='#' class="social__variant fa fa-pinterest"></a>
-                        </div>*@
+                                <a href='#' class="social__variant fa fa-facebook"></a>
+                                <a href='#' class="social__variant fa fa-twitter"></a>
+                                <a href='#' class="social__variant fa fa-vk"></a>
+                                <a href='#' class="social__variant fa fa-instagram"></a>
+                                <a href='#' class="social__variant fa fa-tumblr"></a>
+                                <a href='#' class="social__variant fa fa-pinterest"></a>
+                            </div>*@
                         <div class="clearfix"></div>
                         <p class="copy">&copy;2022. Chào mừng đến với Web đặt vé xem phim 2101</p>
                     </div>
@@ -205,6 +208,8 @@
             </section>
         </footer>
     </div>
+    <script src="~/Assets/Admin/vendor/jquery/jquery.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     @RenderSection("scripts", required: false)
 
 

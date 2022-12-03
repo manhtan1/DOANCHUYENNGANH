@@ -4,20 +4,20 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Configuration;
-using System.Web;
 using PagedList;
-using PagedList.Mvc;
 using System.Web.Mvc;
-using System.Threading.Tasks;
 using phim2101.Others;
-using System.IO;
-using Microsoft.AspNetCore.Mvc;
-
+using log4net;
 
 namespace phim2101.Controllers
 {
     public class HomeController : Controller
     {
+
+        private static readonly ILog log =
+  LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
+
         private DBContext db = new DBContext();
         public ActionResult Index(int? page)
         {
@@ -25,8 +25,7 @@ namespace phim2101.Controllers
             int pageNum = (page ?? 1);
             return View(db.Phims.OrderByDescending(n => n.ThoigianChieu < DateTime.Now).ToList().ToPagedList(pageNum, pageSize));
         }
-
-
+        
 
         [HttpGet]
         public ActionResult phimsapchieu()
@@ -265,34 +264,65 @@ namespace phim2101.Controllers
         {
             var session = (KhachHang)Session["TaiKhoan"];
             List<GioHangItem> lstgiohang = Session["GioHang"] as List<GioHangItem>;
-            Phim phim = db.Phims.Find(id);
             GioHangItem gh = lstgiohang.Find(n => n.MaPhim == id);
+            Phim phim = db.Phims.Find(id);
             string url = ConfigurationManager.AppSettings["Url"];
             string returnUrl = ConfigurationManager.AppSettings["ReturnUrl"];
             string tmnCode = ConfigurationManager.AppSettings["TmnCode"];
             string hashSecret = ConfigurationManager.AppSettings["HashSecret"];
 
-            PayLib pay = new PayLib();
+            //Build URL for VNPAY
+            VnPayLibrary vnpay = new VnPayLibrary();
 
-            pay.AddRequestData("vnp_Version", "2.1.0"); //Phiên bản api mà merchant kết nối. Phiên bản hiện tại là 2.1.0
-            pay.AddRequestData("vnp_Command", "pay"); //Mã API sử dụng, mã cho giao dịch thanh toán là 'pay'
-            pay.AddRequestData("vnp_TmnCode", tmnCode); //Mã website của merchant trên hệ thống của VNPAY (khi đăng ký tài khoản sẽ có trong mail VNPAY gửi về)
-            pay.AddRequestData("vnp_Amount", gh.dthanhtien.ToString()); //số tiền cần thanh toán, công thức: số tiền * 100 - ví dụ 10.000 (mười nghìn đồng) --> 1000000
-            pay.AddRequestData("vnp_BankCode", ""); //Mã Ngân hàng thanh toán (tham khảo: https://sandbox.vnpayment.vn/apis/danh-sach-ngan-hang/), có thể để trống, người dùng có thể chọn trên cổng thanh toán VNPAY
-            pay.AddRequestData("vnp_CreateDate", DateTime.Now.ToString("yyyyMMddHHmmss")); //ngày thanh toán theo định dạng yyyyMMddHHmmss
-            pay.AddRequestData("vnp_CurrCode", "VND"); //Đơn vị tiền tệ sử dụng thanh toán. Hiện tại chỉ hỗ trợ VND
-            pay.AddRequestData("vnp_IpAddr", session.MaKH.ToString()); //Địa chỉ IP của khách hàng thực hiện giao dịch
-            pay.AddRequestData("vnp_Locale", "vn"); //Ngôn ngữ giao diện hiển thị - Tiếng Việt (vn), Tiếng Anh (en)
-            pay.AddRequestData("vnp_OrderInfo", "Thanh toan don hang online"); //Thông tin mô tả nội dung thanh toán
-            pay.AddRequestData("vnp_OrderType", "Thanh toán ghế phim"+phim.ToString()); //topup: Nạp tiền điện thoại - billpayment: Thanh toán hóa đơn - fashion: Thời trang - other: Thanh toán trực tuyến
-            pay.AddRequestData("vnp_ReturnUrl", returnUrl); //URL thông báo kết quả giao dịch khi Khách hàng kết thúc thanh toán
-            pay.AddRequestData("vnp_TxnRef", DateTime.Now.Ticks.ToString()); //mã hóa đơn
+            vnpay.AddRequestData("vnp_Version", VnPayLibrary.VERSION);
+            vnpay.AddRequestData("vnp_Command", "pay");
+            vnpay.AddRequestData("vnp_TmnCode", tmnCode);
+            vnpay.AddRequestData("vnp_Amount", (gh.dthanhtien * 100).ToString()); //Số tiền thanh toán. Số tiền không mang các ký tự phân tách thập phân, phần nghìn, ký tự tiền tệ. Để gửi số tiền thanh toán là 100,000 VND (một trăm nghìn VNĐ) thì merchant cần nhân thêm 100 lần (khử phần thập phân), sau đó gửi sang VNPAY là: 10000000
+            vnpay.AddRequestData("vnp_BankCode", "");
+            vnpay.AddRequestData("vnp_CreateDate", DateTime.Now.ToString("yyyyMMddHHmmss"));
+            vnpay.AddRequestData("vnp_CurrCode", "VND");
+            vnpay.AddRequestData("vnp_IpAddr", Utils.GetIpAddress());
+            vnpay.AddRequestData("vnp_Locale", "vn");
 
-            string paymentUrl = pay.CreateRequestUrl(url, hashSecret);
+            vnpay.AddRequestData("vnp_OrderInfo", "Thanh toan don hang: ve xem phim " + phim.TenPhim);
+            vnpay.AddRequestData("vnp_OrderType", "190001"); //default value: other  190001 la ma loai ve xem phim 
+            vnpay.AddRequestData("vnp_ReturnUrl", returnUrl);
+            vnpay.AddRequestData("vnp_TxnRef", DateTime.Now.Ticks.ToString()); // Mã tham chiếu của giao dịch tại hệ thống của merchant. Mã này là duy nhất dùng để phân biệt các đơn hàng gửi sang VNPAY. Không được trùng lặp trong ngày
 
+            //Add Params of 2.1.0 Version
+            vnpay.AddRequestData("vnp_ExpireDate", DateTime.Now.AddMinutes(15).ToString("yyyyMMddHHmmss"));
+            //Billing
+            vnpay.AddRequestData("vnp_Bill_Mobile", "0355738400");
+            vnpay.AddRequestData("vnp_Bill_Email", "nguyenthu753951@gmail.com");
+            var fullName = "Nguyen Thi Thu";
+            if (!String.IsNullOrEmpty(fullName))
+            {
+                var indexof = fullName.IndexOf(' ');
+                vnpay.AddRequestData("vnp_Bill_FirstName", fullName.Substring(0, indexof));
+                vnpay.AddRequestData("vnp_Bill_LastName", fullName.Substring(indexof + 1, fullName.Length - indexof - 1));
+            }
+            vnpay.AddRequestData("vnp_Bill_Address", "325 HT");
+            vnpay.AddRequestData("vnp_Bill_City", "ABC");
+            vnpay.AddRequestData("vnp_Bill_Country", "VN");
+            vnpay.AddRequestData("vnp_Bill_State", "");
+
+            // Invoice
+
+            vnpay.AddRequestData("vnp_Inv_Phone", "0355738400");
+            vnpay.AddRequestData("vnp_Inv_Email", "nguyenthu753951@gmail.com");
+            vnpay.AddRequestData("vnp_Inv_Customer", "ABC");
+            vnpay.AddRequestData("vnp_Inv_Address", "ABC");
+            vnpay.AddRequestData("vnp_Inv_Company", "ABC");
+            vnpay.AddRequestData("vnp_Inv_Taxcode", "ABC");
+            vnpay.AddRequestData("vnp_Inv_Type", "ABC");
+
+            string paymentUrl = vnpay.CreateRequestUrl(url, hashSecret);
+            log.InfoFormat("VNPAY URL: {0}", paymentUrl);
+            Response.Redirect(paymentUrl);
             return Redirect(paymentUrl);
         }
 
+        [HttpGet]
         public ActionResult PaymentConfirm()
         {
             if (Request.QueryString.Count > 0)
