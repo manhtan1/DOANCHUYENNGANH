@@ -7,7 +7,8 @@
 <h3>Nếu xóa, phim sẽ không thể khôi phục! </h3>
 <div>
     <h4>Bạn chắc chắn sẽ xóa phim  @Html.DisplayFor(model => model.TenPhim) chứ?</h4>
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">

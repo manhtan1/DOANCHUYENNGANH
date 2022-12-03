@@ -11,6 +11,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using phim2101.Models;
+using PagedList;
 
 namespace phim2101.Areas.Admin.Controllers
 {
@@ -19,8 +20,10 @@ namespace phim2101.Areas.Admin.Controllers
         private DBContext db = new DBContext();
 
         // GET: Admin/NhanViens
-        public ActionResult Index()
+        public ActionResult Index(int ? page)
         {
+            int pageSize = 10;
+            int pageNum = (page ?? 1);
             DateTime currentTime = DateTime.Now;
             DateTime star1 = new DateTime(currentTime.Year, currentTime.Month, currentTime.Day, 7, 0, 0);
             DateTime end1 = new DateTime(currentTime.Year, currentTime.Month, currentTime.Day, 14, 0, 0);
@@ -36,7 +39,7 @@ namespace phim2101.Areas.Admin.Controllers
             {
                 if (currentTime < end1 && currentTime > star1)
                 {
-                    return View(db.NhanViens.ToList());
+                    return View(db.NhanViens.ToList().ToPagedList(pageNum, pageSize));
                 }
                 else
                 {
@@ -47,7 +50,7 @@ namespace phim2101.Areas.Admin.Controllers
             {
                 if (currentTime < end2 && currentTime > start2)
                 {
-                    return View(db.NhanViens.ToList());
+                    return View(db.NhanViens.ToList().ToPagedList(pageNum, pageSize));
                 }
                 else
                 {
@@ -229,6 +232,9 @@ namespace phim2101.Areas.Admin.Controllers
                             sqlBulkCopy.ColumnMappings.Add("Phai","Phai");
                             sqlBulkCopy.ColumnMappings.Add("Luong","Luong");
                             sqlBulkCopy.ColumnMappings.Add("ChucVu","ChucVu");
+                            sqlBulkCopy.ColumnMappings.Add("Ca", "Ca");
+                            sqlBulkCopy.ColumnMappings.Add("UserName", "UserName");
+                            sqlBulkCopy.ColumnMappings.Add("Password", "Password");
                             con.Open();
                             sqlBulkCopy.WriteToServer(dtExcel);
                             con.Close();

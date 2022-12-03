@@ -175,6 +175,7 @@
     <Compile Include="Areas\Admin\Controllers\KhachHangsController.cs" />
     <Compile Include="Areas\Admin\Controllers\NhanViensController.cs" />
     <Compile Include="Areas\Admin\Controllers\PhimsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ThongKeController.cs" />
     <Compile Include="Areas\Admin\Controllers\VeController.cs" />
     <Compile Include="Common\MailHelper.cs" />
     <Compile Include="Controllers\DatveController.cs" />
@@ -1963,7 +1964,6 @@
     <Content Include="Areas\Admin\Views\NhanViens\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\NhanViens\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Phims\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\Phims\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\Phims\Details.cshtml" />
     <Content Include="Areas\Admin\Views\Phims\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Phims\Index.cshtml" />
@@ -2152,6 +2152,9 @@
     <Content Include="Areas\Admin\Views\BaoLoi\khongcapquyen.cshtml" />
     <Content Include="Areas\Admin\Views\Home\ngoaithoigian.cshtml" />
     <Content Include="Areas\Admin\Views\ChiTietHDs\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Phims\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\ThongKe\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\ThongKe\Loc.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

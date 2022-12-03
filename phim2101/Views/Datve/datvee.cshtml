@@ -6,7 +6,7 @@
     var phim = db.Phims.ToList();
     phim2101.Models.Phim p = phim.Find(n => n.MaPhim == Model.MaPhim);
     var session = (phim2101.Models.KhachHang)Session["TaiKhoan"]; }
-
+<h4 style="font-size:17px; color:red;">@ViewBag.Thongbao</h4>
 <h3 style="text-align: center">Tên Phim: @p.TenPhim</h3>
 <div style="display:flex;justify-content:center">
     <div class="desc_tickets" style="width:300px;">
@@ -31,7 +31,7 @@
         <input type="submit" value="Đặt vé" class="btn btn-default" /> |
         <a href="/Datve/Trangdatve/@p.MaPhim">Trở lại trang</a>
     </div>
-    }
+}
 <a href="@Url.Action("Payment","Home",new {@id=Model.MaPhim })">Thanh toán</a>
 
 

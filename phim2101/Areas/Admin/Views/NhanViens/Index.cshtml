@@ -1,5 +1,6 @@
-﻿@model IEnumerable<phim2101.Models.NhanVien>
-
+﻿@using PagedList.Mvc;
+@using phim2101.Models;
+@model PagedList.PagedList<NhanVien>
 @{
     ViewBag.Title = "Quản lý Nhân viên";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
@@ -12,7 +13,7 @@
 <table class="table">
     <tr>
         <th>
-            Họ tên 
+            Họ tên
         </th>
         <th>
             Địa chỉ
@@ -32,39 +33,64 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.HoTenNV)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DiaChiNV)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SDT)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NgaySinh)
-        </td>
-        <td>
-            @if (item.Phai == true)
-            {
-                <span>Nam</span>
-            }
-            else
-            {
-                <span>Nữ</span>
-            }
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ChucVu)
-        </td>
-        <td>
-            @Html.ActionLink("Chỉnh sửa", "Edit", new { id=item.MaNV }) |
-            @Html.ActionLink("Chi tiết", "Details", new { id=item.MaNV }) |
-            @Html.ActionLink("Xóa", "Delete", new { id=item.MaNV })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.HoTenNV)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DiaChiNV)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SDT)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NgaySinh)
+            </td>
+            <td>
+                @if (item.Phai == true)
+                {
+                    <span>Nam</span>
+                }
+                else
+                {
+                    <span>Nữ</span>
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ChucVu)
+            </td>
+            <td>
+                @Html.ActionLink("Chỉnh sửa", "Edit", new { id = item.MaNV }) |
+                @Html.ActionLink("Chi tiết", "Details", new { id = item.MaNV }) |
+                @Html.ActionLink("Xóa", "Delete", new { id = item.MaNV })
+            </td>
+        </tr>
+    }
 
 </table>
+<div style="text-align:center;">
+    <div class="MenuTrang">
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page = page }))
+    </div>
+
+</div>
+<style>
+    .MenuTrang {
+        display: inline-block;
+        margin-top: 15px;
+    }
+
+        .MenuTrang li {
+            display: inline;
+            padding: 4px 5px;
+            color: #fff;
+            background: #a52a2a;
+        }
+
+            .MenuTrang li a {
+                color: #fff;
+                text-decoration: none;
+            }
+</style>

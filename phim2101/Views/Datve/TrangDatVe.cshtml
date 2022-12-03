@@ -12,6 +12,9 @@
     .color_white {
         color: #fff !important;
     }
+    .colorrr{
+        color:red;
+    }
 
     .sits__row span {
         color: #000;
@@ -133,34 +136,33 @@
         <div class="order-container">
             <div class="order">
                 <img class="order__images" alt='' src="~/Images/tickets.png">
-                <p class="order__title">Book a ticket <br><span class="order__descript">and have fun movie time</span></p>
+                <p class="order__title">Đặt vé <br><span class="order__descript">và tận hưởng thời gian xem phim</span></p>
 
             </div>
         </div>
         <div class="order-step-area">
-            <div class="order-step second--step">Choose a sit</div>
+            <div class="order-step second--step">Chọn ghế</div>
         </div>
 
         <div class="choose-sits">
             <div class="choose-sits__info choose-sits__info--first">
                 <ul>
-                    <li class="sits-price marker--none"><strong>Price</strong></li>
-                    <li class="sits-price sits-price--cheap">$10</li>
-                    <li class="sits-price sits-price--cheap">$20</li>
-                    <li class="sits-price sits-price--cheap">$30</li>
+                    <li class="sits-price marker--none"><strong>Giá ghế</strong></li>
+                    <li class="sits-price sits-price--cheap">60.000VND</li>
+                    
                 </ul>
             </div>
 
             <div class="choose-sits__info">
                 <ul>
-                    <li class="sits-state sits-state--not">Not available</li>
-                    <li class="sits-state sits-state--your">Your choice</li>
+                    <li class="sits-state sits-state--not">Ghế đã đặt</li>
+                    
                 </ul>
             </div>
 
             <div class="col-sm-12 col-lg-10 col-lg-offset-1">
                 <div class="sits-area hidden-xs">
-                    <div class="sits-anchor">screen</div>
+                    <div class="sits-anchor">Màn hình</div>
 
                     <div class="sits">
                         <aside class="sits__line">
@@ -519,10 +521,26 @@
             }
         </div>
     </section>
-
+    <div>
+        <ul hidden>
+            @foreach(var item in db.ChiTietHDs.ToList())
+            {
+                if(item.Ve.MaPhim==Model.MaPhim && item.Ve.MaPhong == Model.MaPhong)
+                {
+                   <li >
+                        <span class="ghe_trung">
+                            @item.Ghe
+                        </span>
+                    </li>
+                }
+            }
+        </ul>
+    </div>
 </div>
 <script>
+    const text = "";
     const ghe = document.querySelector('.string_ghe');
+    const ghetrung = document.querySelectorAll('.ghe_trung');
     const IdPhong = document.querySelector('.id_phong');
     const Idfilm = document.querySelector(".id_phim");
     const Place = document.querySelectorAll(".sits__place");
@@ -539,6 +557,14 @@
                 item.classList.add('sits-state--not');
             }
         }
+        for (const j of ghetrung) {
+            const gt = j.textContent.split(", ");
+            for (const x of gt) {
+                if (x.trim() == item.dataset.place) {
+                    item.classList.add('sits-state--not');
+                }
+            }
+        }
     }
     buy_ticketNull.addEventListener("click", function () {
         if (ghe.textContent == '') {
@@ -549,6 +575,9 @@
             location.href ="/Datve/datvee/" + Idfilm.dataset.film;
         }
     })
+    
+    
+
 </script>
 @*const Ghe = item.dataset.place;
     let Ghe = item.dataset.place;
@@ -557,3 +586,11 @@
 @*//window.location=@Url.Action("Themgiohang", "Datve")
     //location.href = '@Url.Action("Themgiohang", "Datve", new { @MaPhim = 8, @strURL = Request.Url.ToString() })';
     //location.href = '@Url.Action("Themgiohang", "Datve")?MaPhim=' + 8 + '&strURL=' + parsedQuery*@
+<script>
+    const numbers = [1, 2, 3, 4, 5, 6];
+    let sum = 0;
+    forEach(numbers, function (element) {
+        console.log(sum);
+    });
+    console.log(sum);
+</script>

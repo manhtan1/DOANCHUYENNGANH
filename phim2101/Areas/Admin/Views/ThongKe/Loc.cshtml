@@ -1,0 +1,147 @@
+﻿@model IEnumerable<phim2101.Models.ChiTietHD>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<div>
+    <h1 style="text-align:center">Doanh thu của Phim</h1>
+    <div class=" row">
+        <div class="col-2">
+
+            <div class="form_date">
+                <label for="timestart">Start :</label>
+                <input type="date" id="timestart" name="thoigianbatdau">
+                <br />
+                <label for="timestart">end :</label>
+                <input type="date" id="timeend" name="thoigianketthuc">
+                <br />
+                <button class="btn_loc" onclick="chonthoigian()">Lọc</button>
+            </div>
+        </div>
+        <div class="col-8">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tên phim</th>
+                        <th>Doanh thu theo năm</th>
+                        <th>Số vé đã bán được</th>
+                        <th>Số vé chưa bán được</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        phim2101.Models.DBContext db = new phim2101.Models.DBContext();
+                        var phim = db.Phims.ToList();
+                    }
+                    @foreach (var item in phim)
+                    {
+                        <tr>
+                            <td>
+                                @item.TenPhim
+                            </td>
+                            @*<td>
+                                    @{
+                                        double tongtienThang = 0;
+
+                                    }
+                                    @foreach (var i in Model)
+                                    {
+
+                                        if (i.Ve.MaPhim == item.MaPhim && i.Status == true)
+                                        {
+                                            if (i.NgayBanVe.Value.Year.ToString() == DateTime.Now.Year.ToString())
+                                            {
+                                                tongtienThang += (double)i.Hoadon.TongTien;
+                                            }
+                                        }
+
+                                    }
+                                    <span>@tongtienThang VND</span>
+                                </td>*@
+                            <td>
+                                @{
+                                    double tongtien = 0;
+
+                                }
+                                @foreach (var i in Model)
+                                {
+
+                                    if (i.Ve.MaPhim == item.MaPhim && i.Status == true)
+                                    {
+                                        if (i.NgayBanVe.Value.Year.ToString() == DateTime.Now.Year.ToString())
+                                        {
+                                            tongtien += (double)i.Hoadon.TongTien;
+                                        }
+                                    }
+
+                                }
+                                <span>@tongtien VND</span>
+
+                            </td>
+                            <td>
+                                @{
+                                    int dem = 0;
+
+                                }
+                                @foreach (var i in Model)
+                                {
+
+                                    if (i.Ve.MaPhim == item.MaPhim && i.Status == true)
+                                    {
+                                        dem += 1;
+                                    }
+
+                                }
+                                <span>@dem</span>
+
+                            </td>
+                            <td>
+                                @{
+                                    int dem1 = 0;
+
+                                }
+                                @foreach (var i in Model)
+                                {
+
+                                    if (i.Ve.MaPhim == item.MaPhim && i.Status == false)
+                                    {
+                                        dem1 += 1;
+                                    }
+
+                                }
+                                <span>@dem1</span>
+
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+        </div>
+        <div class="col-2">
+
+        </div>
+    </div>
+</div>
+<script>
+    var timestart = document.getElementById('timestart');
+    var timeend = document.getElementById('timeend');
+    var btn = document.querySelector('btn_loc');
+    function chonthoigian() {
+        location.href = '@Url.Action("loc","thongke")?start=' + timestart.value.toString() + ' &end=' + timeend.value.toString();
+    }
+
+</script>
+<style>
+    table, th, td {
+        border: 1px solid black;
+    }
+
+    table {
+        padding: 15px;
+        margin: 15px;
+    }
+    .form_date {
+        text-align: center;
+    }
+</style>

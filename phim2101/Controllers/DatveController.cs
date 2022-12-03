@@ -105,9 +105,7 @@ namespace phim2101.Controllers
             hd.TongTien = gh.dthanhtien;
             hd.MaNV = 1;
             db.Hoadons.Add(hd);
-
             ChiTietHD cthd = new ChiTietHD();
-
             cthd.MaHD = hd.MaHD;
             cthd.MaVe = ve.MaVe;
             cthd.MaUD = 1;
@@ -118,18 +116,19 @@ namespace phim2101.Controllers
             db.ChiTietHDs.Add(cthd);
             Session["GioHang"] = null;
             db.SaveChanges();
-            /*string content = System.IO.File.ReadAllText(Server.MapPath("~/Assets/Customer/template/dathang.html"));
+            string content = System.IO.File.ReadAllText(Server.MapPath("~/Assets/Customer/template/dathang.html"));
             var toEmail = ConfigurationManager.AppSettings["ToEmailAddress"].ToString();
             foreach (var i in db.KhachHangs.ToList())
             {
-                string suatchieu = "Thời gian phát" + gh.SuatChieu;
+                string suatchieu = " Thời gian phát :" + gh.SuatChieu;
                 content = content.Replace("{{notice}}", "Bạn đã đặt vé thành công!!!!");
                 content = content.Replace("{{tenphim}}", phim.TenPhim);
                 content = content.Replace("{{suatchieu}}", suatchieu);
                 content = content.Replace("{{ghe}}", gh.Ghe);
+                content = content.Replace("{{ghe}}", gh.Ghe);
                 new MailHelper().SendMail(i.Email, "Đặt vé thành công!!", content);
                 new MailHelper().SendMail(toEmail, "Đặt vé thành công!!", content);
-            }*/
+            }
 
             return RedirectToAction("index", "home");
         }
